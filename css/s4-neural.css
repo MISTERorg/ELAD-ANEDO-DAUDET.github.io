@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════
    SEC 4 — THE NEURAL MAP
-   Tron Light-Beam Edition — matches s5 aesthetic
+   Tron Light-Beam Edition — 8 skill categories
    Technique: CSS @property rotating conic-gradient
    border per card, circuit grid background, glassmorphism
 ═══════════════════════════════════════════════════ */
 
-/* ── Animated border angle (same @property as s5) ── */
+/* ── Animated border angle ── */
 @property --bn-angle {
   syntax: '<angle>';
   initial-value: 0deg;
@@ -14,7 +14,6 @@
 
 /* ─────────────────────────────────────────────────
    SECTION BACKGROUND
-   Dual circuit grid (drifting) + cyan radial glow
 ───────────────────────────────────────────────── */
 #s4 {
   background:
@@ -67,7 +66,6 @@
   to   { background-position: 56px 56px; }
 }
 
-/* Section header + grid sit above the grid overlay */
 #s4 .sec-hdr,
 #s4 .bento-grid {
   position: relative;
@@ -79,28 +77,28 @@
 }
 
 /* ─────────────────────────────────────────────────
-   BENTO GRID
+   BENTO GRID — 4 cols desktop → 2 cols tablet → 1 col mobile
+   8 cards sit in two rows of 4.
 ───────────────────────────────────────────────── */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  max-width: 1160px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
 }
 
 /* ─────────────────────────────────────────────────
-   BEAM FRAME — the rotating conic-gradient "border"
-   --bn-color set inline by JS per card
+   BEAM FRAME — rotating conic-gradient "border"
 ───────────────────────────────────────────────── */
 .bn-frame {
   --bn-angle: 0deg;
-  --bn-color: 0,242,255;    /* overridden inline */
+  --bn-color: 0,242,255;
   --bn-speed: 5.5s;
 
   position: relative;
-  padding: 1.5px;           /* "border" thickness */
+  padding: 1.5px;
 
   background: conic-gradient(
     from var(--bn-angle),
@@ -124,7 +122,6 @@
 
 @keyframes bn-beam-spin { to { --bn-angle: 360deg; } }
 
-/* Hover: beam accelerates, outer glow ignites */
 .bn-frame:hover {
   --bn-speed: 1.6s;
   box-shadow:
@@ -140,7 +137,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 28px 24px 22px;
+  padding: 22px 20px 18px;
   background: linear-gradient(145deg,
     rgba(4, 10, 30, .95),
     rgba(2,  5, 18, .98)
@@ -152,13 +149,12 @@
   flex-direction: column;
   gap: 0;
   transition: background .35s;
-  /* Remove old border — frame handles it */
   border: none;
   border-radius: 0;
   clip-path: none;
 }
 
-/* Top accent beam line — brightens on hover */
+/* Top accent beam line */
 .bento-card .bc-top {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -177,7 +173,7 @@
 }
 .bn-frame:hover .bc-top { opacity: 1; }
 
-/* Inner "power up" shimmer on hover */
+/* Inner hover shimmer */
 .bento-card::before {
   content: '';
   position: absolute;
@@ -193,7 +189,7 @@
 }
 .bn-frame:hover .bento-card::before { opacity: 1; }
 
-/* Scanlines overlay */
+/* Scanlines */
 .bento-card::after {
   content: '';
   position: absolute;
@@ -209,7 +205,6 @@
   z-index: 0;
 }
 
-/* All direct card children above pseudo-elements */
 .bento-card > * { position: relative; z-index: 1; }
 
 /* ─────────────────────────────────────────────────
@@ -218,16 +213,16 @@
 .bento-header {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
+  gap: 11px;
+  margin-bottom: 16px;
+  padding-bottom: 13px;
   border-bottom: 1px solid rgba(var(--bn-color), .14);
   transition: border-color .35s;
 }
 .bn-frame:hover .bento-header { border-color: rgba(var(--bn-color), .3); }
 
 .bento-icon {
-  font-size: 30px;
+  font-size: 26px;
   line-height: 1;
   flex-shrink: 0;
   filter: drop-shadow(0 0 10px rgba(var(--bn-color), .55));
@@ -242,10 +237,10 @@
 
 .bento-title {
   font-family: var(--fd);
-  font-size: 13px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: .14em;
-  color: #ffffff;                  /* Pure white for maximum contrast */
+  letter-spacing: .12em;
+  color: #ffffff;
   text-shadow: 0 0 12px rgba(var(--bn-color), .35);
   line-height: 1.2;
   margin-bottom: 5px;
@@ -258,20 +253,20 @@
 .bento-prefix {
   color: rgba(var(--bn-color), .8);
   margin-right: 6px;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .bento-desc {
-  font-size: 10.5px;             /* Was missing entirely — added */
-  color: rgba(210,228,252,.68);
-  letter-spacing: .06em;
+  font-size: 9.5px;
+  color: rgba(210,228,252,.62);
+  letter-spacing: .04em;
   line-height: 1.5;
 }
 
 .bento-badge {
   display: inline-flex;
   align-items: center;
-  margin-top: 7px;
+  margin-top: 6px;
   padding: 2px 9px;
   background: rgba(var(--bn-color), .08);
   border: 1px solid rgba(var(--bn-color), .22);
@@ -287,25 +282,25 @@
 }
 
 /* ─────────────────────────────────────────────────
-   TECH TAGS  — the main readability upgrade
+   TECH TAGS
 ───────────────────────────────────────────────── */
 .tech-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
   flex: 1;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   align-content: flex-start;
 }
 
 .tech-tag {
   font-family: var(--fm);
-  font-size: 10.5px;               /* Was 9px — now clearly legible */
-  padding: 6px 13px;               /* More breathing room */
+  font-size: 9.5px;
+  padding: 5px 11px;
   background: rgba(0, 8, 24, .72);
   border: 1px solid rgba(var(--bn-color), .28);
-  color: rgba(220,236,255, .88);   /* Was var(--txt) at ~.42 — much brighter */
-  letter-spacing: .06em;
+  color: rgba(220,236,255, .88);
+  letter-spacing: .05em;
   clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
   cursor: default;
   position: relative;
@@ -345,7 +340,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid rgba(var(--bn-color), .1);
   margin-top: auto;
   transition: border-color .35s;
@@ -366,12 +361,15 @@
 }
 
 .footer-text {
-  font-size: 8px;
-  letter-spacing: .2em;
-  color: rgba(200,218,245,.45);    /* Was .3 — more visible */
+  font-size: 7.5px;
+  letter-spacing: .18em;
+  color: rgba(200,218,245,.45);
   text-transform: uppercase;
   flex: 1;
   transition: color .35s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .bn-frame:hover .footer-text { color: rgba(200,218,245,.7); }
 
@@ -381,6 +379,7 @@
   letter-spacing: .1em;
   color: rgba(var(--bn-color), .8);
   transition: color .35s, text-shadow .35s;
+  flex-shrink: 0;
 }
 .bn-frame:hover .footer-count {
   color: rgba(var(--bn-color), 1);
@@ -388,7 +387,7 @@
 }
 
 /* ─────────────────────────────────────────────────
-   AUTOMATION CARD — radial pulse background effect
+   AUTOMATION CARD — radial pulse background
 ───────────────────────────────────────────────── */
 .bento-card.automation .bc-pulse-bg {
   position: absolute;
@@ -407,27 +406,61 @@
 }
 
 /* ─────────────────────────────────────────────────
+   DATA SCIENCE CARD — subtle pink radial glow
+───────────────────────────────────────────────── */
+.bento-card.datascience::before {
+  background: linear-gradient(165deg,
+    rgba(255,100,160,.04) 0%,
+    transparent 55%
+  );
+}
+
+/* ─────────────────────────────────────────────────
+   MONITORING CARD — warm amber radial glow
+───────────────────────────────────────────────── */
+.bento-card.monitoring::before {
+  background: linear-gradient(165deg,
+    rgba(255,165,0,.04) 0%,
+    transparent 55%
+  );
+}
+
+/* ─────────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────────── */
-@media (max-width: 1000px) {
+
+/* Large tablet / small desktop — 2 columns */
+@media (max-width: 1100px) {
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    gap: 16px;
+    max-width: 860px;
   }
 }
 
-@media (max-width: 640px) {
+/* Narrow tablet — still 2 columns, tighter */
+@media (max-width: 800px) {
+  .bento-grid {
+    gap: 13px;
+  }
+  .bento-card { padding: 18px 16px 15px; }
+  .bento-title { font-size: 10.5px; }
+  .bento-desc  { font-size: 9px; }
+}
+
+/* Mobile — single column */
+@media (max-width: 580px) {
   #s4 { padding: 68px 14px 48px; }
 
   .bento-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
   }
 
-  .bento-card { padding: 22px 18px 18px; }
-  .bento-title { font-size: 12px; }
-  .bento-desc  { font-size: 9.5px; }
-  .tech-tag    { font-size: 10px; padding: 5px 11px; }
+  .bento-card { padding: 20px 16px 16px; }
+  .bento-title { font-size: 11px; }
+  .bento-desc  { font-size: 9px; }
+  .tech-tag    { font-size: 9px; padding: 4px 10px; }
 
   /* Static border on mobile — no @property animation needed */
   .bn-frame {

@@ -1,103 +1,171 @@
 // [file name]: s4-neural.js
 /* ═══════════════════════════════════════════════════
    SEC 4 — THE NEURAL MAP (Tron Bento Grid)
-   - Each card wrapped in .bn-frame for rotating beam
-   - All labels driven by i18n keys
+   - 8 comprehensive skill categories from resume + industry must-haves
+   - Each card wrapped in .bn-frame for rotating beam border
+   - All labels driven by i18n keys with inline fallbacks
    - refreshNeural() re-renders text on lang switch
 ═══════════════════════════════════════════════════ */
 
-/* ── Skill categories — tech tag names are brand names,
-   not translated. Category titles, descriptions, and
-   footer text are all i18n-keyed.                  ── */
+/* ── Skill categories
+   · i18nCat / i18nDesc / i18nFoot → keys looked up in I18N
+   · label / desc / foot            → inline English fallbacks
+     (shown when i18n key is missing — no broken key strings)
+   · tags: brand names, never translated                      ── */
 const BENTO_CATEGORIES = [
   {
     id:       'devops',
-    i18nCat:  's4-cat-devops',
-    i18nDesc: 's4-desc-devops',
-    i18nFoot: 's4-foot-devops',
+    i18nCat:  's4-cat-devops',   label: 'DevOps & Cloud',
+    i18nDesc: 's4-desc-devops',  desc:  'CI/CD · IaC · Container orchestration · Multi-cloud deployments',
+    i18nFoot: 's4-foot-devops',  foot:  'Infrastructure as Code',
     icon:     '☁️',
     iconHover:'⚡',
     color:    '0,242,255',
     speed:    '5.2s',
     className:'devops',
     tags: [
-      'Git','GitLab CI/CD','GitHub Actions','Linux',
-      'AWS','GCP','Kubernetes','Docker','Ansible',
-      'Terraform','SSH'
+      'Git', 'GitLab CI/CD', 'GitHub Actions',
+      'Linux', 'Bash', 'SSH',
+      'AWS', 'GCP', 'Azure',
+      'Docker', 'Kubernetes', 'Helm', 'ArgoCD',
+      'Terraform', 'Ansible', 'Vagrant',
+      'REST APIs', 'YAML'
     ]
   },
   {
     id:       'automation',
-    i18nCat:  's4-cat-automation',
-    i18nDesc: 's4-desc-automation',
-    i18nFoot: 's4-foot-automation',
+    i18nCat:  's4-cat-automation',   label: 'AI & Automation',
+    i18nDesc: 's4-desc-automation',  desc:  'Agentic AI · workflow automation · AIOps · LLM-powered pipelines',
+    i18nFoot: 's4-foot-automation',  foot:  'AIOps & Intelligent Workflows',
     icon:     '🤖',
     iconHover:'⚡',
     color:    '180,77,255',
     speed:    '4.6s',
     className:'automation',
     hasPulse: true,
-    tags: ['n8n','Make.com','UiPath','Cline','LangChain','Ansible']
+    tags: [
+      'n8n', 'Make.com', 'UiPath', 'Robocorp',
+      'Cline', 'LangChain', 'OpenAI API',
+      'Prompt Engineering', 'Ansible',
+      'AIOps', 'AutoGPT', 'Hugging Face'
+    ]
   },
   {
     id:       'programming',
-    i18nCat:  's4-cat-programming',
-    i18nDesc: 's4-desc-programming',
-    i18nFoot: 's4-foot-programming',
+    i18nCat:  's4-cat-programming',   label: 'Programming',
+    i18nDesc: 's4-desc-programming',  desc:  'System scripting · data manipulation · full-stack logic',
+    i18nFoot: 's4-foot-programming',  foot:  'Languages & Scripting',
     icon:     '💻',
     iconHover:'🔧',
     color:    '0,255,157',
     speed:    '5.8s',
     className:'programming',
     tags: [
-      'Python','NumPy','Pandas','Scikit-learn',
-      'TypeScript','JavaScript','Shell Script',
-      'PowerShell','SQL','C','PHP'
+      'Python', 'TypeScript', 'JavaScript',
+      'Shell Script', 'PowerShell', 'Bash',
+      'SQL', 'C', 'PHP',
+      'HTML', 'SCSS / CSS', 'YAML',
+      'JSON', 'XML', 'Regex'
+    ]
+  },
+  {
+    id:       'datascience',
+    i18nCat:  's4-cat-datascience',   label: 'Data & ML',
+    i18nDesc: 's4-desc-datascience',  desc:  'ML pipelines · statistical analysis · predictive modelling · edge AI',
+    i18nFoot: 's4-foot-datascience',  foot:  'Machine Learning & Data Science',
+    icon:     '🧠',
+    iconHover:'📈',
+    color:    '255,100,160',
+    speed:    '5.0s',
+    className:'datascience',
+    tags: [
+      'NumPy', 'Pandas', 'Scikit-learn',
+      'Matplotlib', 'Seaborn',
+      'TensorFlow', 'Keras',
+      'LangChain', 'EdgeAI', 'RTOS',
+      'Jupyter', 'Google Colab', 'LaTeX'
     ]
   },
   {
     id:       'frameworks',
-    i18nCat:  's4-cat-frameworks',
-    i18nDesc: 's4-desc-frameworks',
-    i18nFoot: 's4-foot-frameworks',
+    i18nCat:  's4-cat-frameworks',   label: 'Frameworks & APIs',
+    i18nDesc: 's4-desc-frameworks',  desc:  'Backend services · SPA frontends · ERP integration · REST & GraphQL',
+    i18nFoot: 's4-foot-frameworks',  foot:  'Web & Application Frameworks',
     icon:     '⚙️',
     iconHover:'🏗️',
     color:    '240,192,64',
     speed:    '6.2s',
     className:'frameworks',
-    tags: ['Django','FastAPI','Angular','Symfony','Odoo']
+    tags: [
+      'Django', 'FastAPI', 'Symfony',
+      'Angular', 'Odoo',
+      'REST API', 'GraphQL',
+      'WebSockets', 'gRPC'
+    ]
   },
   {
     id:       'security',
-    i18nCat:  's4-cat-security',
-    i18nDesc: 's4-desc-security',
-    i18nFoot: 's4-foot-security',
+    i18nCat:  's4-cat-security',   label: 'Security & QA',
+    i18nDesc: 's4-desc-security',  desc:  'Zero-trust · penetration testing · automated QA · SIEM · compliance',
+    i18nFoot: 's4-foot-security',  foot:  'Cybersecurity & Test Automation',
     icon:     '🛡️',
     iconHover:'🔒',
     color:    '255,51,102',
     speed:    '4.9s',
     className:'security',
-    tags: ['OWASP ZAP','SonarQube','SQLMap','Selenium','Cypress','Playwright']
+    tags: [
+      'OWASP ZAP', 'SonarQube', 'SQLMap',
+      'Wireshark', 'Nmap', 'Metasploit',
+      'Cisco ASA', 'Cisco IOS', 'FortiGate',
+      'IPSec', 'Zero-Trust', 'Splunk',
+      'Selenium', 'Cypress', 'Playwright',
+      'Robocorp', 'GDPR / ISO 27001'
+    ]
+  },
+  {
+    id:       'monitoring',
+    i18nCat:  's4-cat-monitoring',   label: 'Monitoring & Observability',
+    i18nDesc: 's4-desc-monitoring',  desc:  'Real-time telemetry · alerting · log aggregation · incident response',
+    i18nFoot: 's4-foot-monitoring',  foot:  'Observability Stack',
+    icon:     '📡',
+    iconHover:'📊',
+    color:    '255,165,0',
+    speed:    '5.4s',
+    className:'monitoring',
+    tags: [
+      'Prometheus', 'Grafana', 'Alertmanager',
+      'Datadog', 'New Relic',
+      'ELK Stack', 'Kibana', 'Logstash',
+      'Splunk', 'PagerDuty',
+      'Zabbix', 'Nagios', 'Jaeger'
+    ]
   },
   {
     id:       'databases',
-    i18nCat:  's4-cat-databases',
-    i18nDesc: 's4-desc-databases',
-    i18nFoot: 's4-foot-databases',
+    i18nCat:  's4-cat-databases',   label: 'Databases & Storage',
+    i18nDesc: 's4-desc-databases',  desc:  'Relational · NoSQL · in-memory caching · search · object storage',
+    i18nFoot: 's4-foot-databases',  foot:  'Data Persistence Layer',
     icon:     '🗄️',
     iconHover:'📊',
     color:    '0,180,255',
     speed:    '5.5s',
     className:'databases',
-    tags: ['PostgreSQL','MySQL','Redis','MongoDB']
+    tags: [
+      'PostgreSQL', 'MySQL', 'SQLite',
+      'MongoDB', 'Redis',
+      'Elasticsearch', 'Apache Kafka',
+      'AWS S3', 'MinIO'
+    ]
   }
 ];
 
-/* ── Resolve a translation key from the active language ── */
-function _t(key) {
+/* ── Resolve a translation key — falls back to inline label ── */
+function _t(key, fallback) {
   const lang = (typeof getLang === 'function') ? getLang() : 'en';
   const dict = (typeof I18N !== 'undefined') ? I18N[lang] : null;
-  return (dict && dict[key]) ? dict[key] : key;
+  if (dict && dict[key]) return dict[key];
+  /* Use provided fallback text rather than exposing raw key strings */
+  return (fallback !== undefined) ? fallback : key;
 }
 
 /* ── Build the hex count string ── */
@@ -153,7 +221,6 @@ function _buildCard(cat) {
   /* Inner glass card */
   const card = document.createElement('div');
   card.className = `bento-card ${cat.className || ''}`;
-  /* Pass --bn-color into card scope for pseudo-elements */
   card.style.setProperty('--bn-color', cat.color);
 
   /* Top accent line */
@@ -193,8 +260,7 @@ function _buildCard(cat) {
   const titleLabel = document.createElement('span');
   titleLabel.className = 'bento-title-label';
   titleLabel.dataset.i18n = cat.i18nCat;
-  /* Fallback text (replaced by refreshNeural on lang switch) */
-  titleLabel.textContent = _t(cat.i18nCat);
+  titleLabel.textContent = _t(cat.i18nCat, cat.label);
 
   title.appendChild(prefix);
   title.appendChild(titleLabel);
@@ -202,11 +268,11 @@ function _buildCard(cat) {
   const desc = document.createElement('div');
   desc.className = 'bento-desc';
   desc.dataset.i18n = cat.i18nDesc;
-  desc.textContent = _t(cat.i18nDesc);
+  desc.textContent = _t(cat.i18nDesc, cat.desc);
 
   const badge = document.createElement('div');
   badge.className = 'bento-badge';
-  badge.textContent = cat.tags.length + ' ' + _t('s4-tools');
+  badge.textContent = cat.tags.length + ' ' + _t('s4-tools', 'tools');
 
   headText.appendChild(title);
   headText.appendChild(desc);
@@ -237,7 +303,7 @@ function _buildCard(cat) {
   const footTxt = document.createElement('span');
   footTxt.className = 'footer-text';
   footTxt.dataset.i18n = cat.i18nFoot;
-  footTxt.textContent = _t(cat.i18nFoot);
+  footTxt.textContent = _t(cat.i18nFoot, cat.foot);
 
   const count = document.createElement('span');
   count.className = 'footer-count';
@@ -278,30 +344,38 @@ function _syncSectionTitles() {
 }
 
 /* ══════════════════════════════════════════════════
-   refreshNeural() — called by setGlobalLang on every
-   language switch. Updates all text nodes in the grid
-   without destroying and rebuilding the DOM.
+   refreshNeural() — called on every language switch
 ══════════════════════════════════════════════════ */
 function refreshNeural() {
-  /* Section titles */
   _syncSectionTitles();
 
   /* Re-translate every labelled node */
   document.querySelectorAll('.bn-frame [data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    const val = _t(key);
-    if (val && val !== key) el.textContent = val;
+    const catId = el.closest('.bn-frame')?.dataset.catId;
+    const cat = catId ? BENTO_CATEGORIES.find(c => c.id === catId) : null;
+
+    /* Pick the right fallback field */
+    let fallback;
+    if (cat) {
+      if (key === cat.i18nCat)  fallback = cat.label;
+      if (key === cat.i18nDesc) fallback = cat.desc;
+      if (key === cat.i18nFoot) fallback = cat.foot;
+    }
+
+    const val = _t(key, fallback);
+    if (val) el.textContent = val;
   });
 
-  /* Re-translate badges (tools count label may change) */
+  /* Re-translate badges */
   document.querySelectorAll('.bento-badge').forEach(badge => {
     const frame = badge.closest('.bn-frame');
     if (!frame) return;
     const cat = BENTO_CATEGORIES.find(c => c.id === frame.dataset.catId);
     if (!cat) return;
-    badge.textContent = cat.tags.length + ' ' + _t('s4-tools');
+    badge.textContent = cat.tags.length + ' ' + _t('s4-tools', 'tools');
   });
 }
 
-window.initNeural  = initNeural;
+window.initNeural    = initNeural;
 window.refreshNeural = refreshNeural;

@@ -17,6 +17,7 @@
   gap: 22px;
   width: 100%;
   max-width: 1080px;
+  margin: 0 auto;   /* keep grid centred inside flex .sec */
 }
 
 /* ── Perspective wrapper ── */
@@ -179,6 +180,16 @@
   .hc-tag    { font-size: 7px; padding: 3px 7px; }
   .hc-footer { transform: none; }
   .hc-link   { font-size: 7.5px; }
+}
+
+/* Mid-size phones: still 2 cols but cards taller to avoid overflow */
+@media (max-width: 480px) {
+  .holo-grid { gap: 10px; }
+  .holo-card { padding: 14px 12px 12px; }
+  .hc-ico    { font-size: 22px; }
+  .hc-name   { font-size: 10px; }
+  .hc-desc   { font-size: 9px; line-height: 1.6; }
+  .hc-tag    { font-size: 6.5px; padding: 2px 6px; }
 }
 
 /* Small phones: single column */

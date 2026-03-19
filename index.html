@@ -242,20 +242,21 @@
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
-     SECTION 3 — INNOVATION LAB
-═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════
+     SECTION 3 — PERSONAL PROJECTS
+     Replace the entire <section id="s3"> … </section>
+     block in index.html with this.
+  ═══════════════════════════════════════════════ -->
   <section class="sec" id="s3">
     <div class="sec-hdr">
-      <div class="sec-n">Enterprise Level project can't be given because they are confidential(NDA)</div>
-      <div class="sec-t" data-i18n="s3-title">PERSONAL PROJECTS
-      </div>
+      <div class="sec-n">Enterprise-level work is under NDA — public projects shown below</div>
+      <div class="sec-t" data-i18n="s3-title">PERSONAL PROJECTS</div>
       <div class="sec-sub" data-i18n="s3-sub">System Design · AI-Powered Automation · Production Deployments</div>
     </div>
+
     <div class="holo-grid">
 
-
-      <!-- 01 · ERP Sync Engine — accent: cyan -->
+      <!-- 01 · ERP Sync Engine — gitlab.com/mistercomp1 · cyan -->
       <div class="holo-wrap" style="--acc-rgb:0,242,255">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
@@ -264,44 +265,50 @@
           <div class="hc-num" data-i18n="c1-num">01 / E-COMMERCE · ERP</div>
           <div class="hc-ico">🔗</div>
           <div class="hc-name" data-i18n="c1-name">ERP SYNC<br>ENGINE</div>
-          <div class="hc-desc" data-i18n="c1-desc">Designed RESTful APIs linking major e-commerce marketplaces with Odoo
-            Community for real-time inventory and order sync. Built at Óxido Verde, Hosono DE, and MisterComp.</div>
+          <div class="hc-desc" data-i18n="c1-desc">Designed RESTful APIs linking major e-commerce marketplaces with Odoo Community for real-time inventory and order sync. Deployed at Óxido Verde, Hosono DE, and MisterComp.</div>
           <div class="hc-stack">
             <span class="hc-tag">Odoo</span>
             <span class="hc-tag">Python</span>
             <span class="hc-tag">REST API</span>
+            <span class="hc-tag">Django</span>
             <span class="hc-tag">JSON</span>
           </div>
-          <div class="hc-footer"><a href="#" class="hc-link"><span data-i18n="c1-link">→ LEARN MORE</span></a></div>
+          <div class="hc-footer">
+            <a href="https://gitlab.com/mistercomp1/" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c1-link">→ VIEW ON GITLAB</span>
+            </a>
+          </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-      <!-- 02 · CyberOps Defense Matrix — accent: gold -->
-      <div class="holo-wrap" style="--acc-rgb:240,192,64">
+      <!-- 02 · ATHENA Voice AI — github.com/MISTERorg · pink -->
+      <div class="holo-wrap" style="--acc-rgb:255,80,140">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
           <div class="hc-scanline"></div>
           <div class="hc-corner"></div>
-          <div class="hc-num" data-i18n="c2-num">02 / CYBERSECURITY</div>
-          <div class="hc-ico">🛡️</div>
-          <div class="hc-name" data-i18n="c2-name">CYBEROPS<br>DEFENSE MATRIX</div>
-          <div class="hc-desc" data-i18n="c2-desc">Designed firewall and IDS/IPS defenses at Cisco Systems, built
-            incident response playbooks, and automated threat detection — reducing MTTR by 40%.</div>
+          <div class="hc-num" data-i18n="c2-num">02 / AI · HARDWARE</div>
+          <div class="hc-ico">🧠</div>
+          <div class="hc-name" data-i18n="c2-name">ATHENA<br>VOICE AI</div>
+          <div class="hc-desc" data-i18n="c2-desc">Self-directed R&amp;D device fusing LLM reasoning with custom low-power hardware — sub-200ms audio response, 94% intent accuracy, multi-turn context via LangChain. No GPU required.</div>
           <div class="hc-stack">
             <span class="hc-tag">Python</span>
-            <span class="hc-tag">Cisco ASA</span>
-            <span class="hc-tag">IDS/IPS</span>
-            <span class="hc-tag">Splunk</span>
-            <span class="hc-tag">SIEM</span>
+            <span class="hc-tag">LangChain</span>
+            <span class="hc-tag">TensorFlow</span>
+            <span class="hc-tag">RTOS</span>
+            <span class="hc-tag">I2S Audio</span>
           </div>
-          <div class="hc-footer"><a href="#" class="hc-link"><span data-i18n="c2-link">→ CISCO · SAN JOSE</span></a>
+          <div class="hc-footer">
+            <a href="https://github.com/MISTERorg" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c2-link">→ VIEW ON GITHUB</span>
+            </a>
           </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-      <!-- 03 · Multi-Platform Data Pipelines — accent: mint -->
+      <!-- 03 · Data Pipelines — github.com/MISTERorg · mint -->
       <div class="holo-wrap" style="--acc-rgb:0,255,157">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
@@ -310,20 +317,24 @@
           <div class="hc-num" data-i18n="c3-num">03 / DATA · INTEGRATION</div>
           <div class="hc-ico">🔄</div>
           <div class="hc-name" data-i18n="c3-name">MULTI-PLATFORM<br>DATA PIPELINES</div>
-          <div class="hc-desc" data-i18n="c3-desc">Developed and optimized Python automation scripts for massive
-            multi-platform data integration and transformation at A-B InBev (Prague) and Makana-Partners.</div>
+          <div class="hc-desc" data-i18n="c3-desc">Developed and optimised Python automation scripts for large-scale multi-platform data integration and transformation at A-B InBev (Prague) and Makana-Partners (Tokyo).</div>
           <div class="hc-stack">
             <span class="hc-tag">Python</span>
             <span class="hc-tag">Pandas</span>
+            <span class="hc-tag">NumPy</span>
             <span class="hc-tag">SQL</span>
             <span class="hc-tag">Docker</span>
           </div>
-          <div class="hc-footer"><a href="#" class="hc-link"><span data-i18n="c3-link">→ VIEW PROJECT</span></a></div>
+          <div class="hc-footer">
+            <a href="https://github.com/MISTERorg" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c3-link">→ VIEW ON GITHUB</span>
+            </a>
+          </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-      <!-- 04 · Automation Foundry — accent: purple -->
+      <!-- 04 · Automation Foundry — github.com/MISTERorg · purple -->
       <div class="holo-wrap" style="--acc-rgb:180,77,255">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
@@ -332,21 +343,24 @@
           <div class="hc-num" data-i18n="c4-num">04 / AUTOMATION · AIOPS</div>
           <div class="hc-ico">⚙️</div>
           <div class="hc-name" data-i18n="c4-name">AUTOMATION<br>FOUNDRY</div>
-          <div class="hc-desc" data-i18n="c4-desc">Built automated workflows for seamless data flow and orchestrated
-            CI/CD pipelines. From low-code RPA to infrastructure-as-code — end-to-end AIOps coverage.</div>
+          <div class="hc-desc" data-i18n="c4-desc">Built automated workflows for seamless data flow and orchestrated CI/CD pipelines. From low-code RPA to infrastructure-as-code — end-to-end AIOps coverage.</div>
           <div class="hc-stack">
             <span class="hc-tag">n8n</span>
             <span class="hc-tag">Make.com</span>
             <span class="hc-tag">UiPath</span>
             <span class="hc-tag">Ansible</span>
+            <span class="hc-tag">LangChain</span>
           </div>
-          <div class="hc-footer"><a href="https://github.com/MISTERorg" class="hc-link" target="_blank"><span
-                data-i18n="c4-link">→ GITHUB</span></a></div>
+          <div class="hc-footer">
+            <a href="https://github.com/MISTERorg" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c4-link">→ VIEW ON GITHUB</span>
+            </a>
+          </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-      <!-- 05 · MisterComp Startup — accent: warn/red -->
+      <!-- 05 · MisterComp Platform — gitlab.com/mistercomp1 · red -->
       <div class="holo-wrap" style="--acc-rgb:255,51,102">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
@@ -354,45 +368,51 @@
           <div class="hc-corner"></div>
           <div class="hc-num" data-i18n="c5-num">05 / STARTUP · CTO</div>
           <div class="hc-ico">🚀</div>
-          <div class="hc-name" data-i18n="c5-name">MISTERCOMP<br>STARTUP</div>
-          <div class="hc-desc" data-i18n="c5-desc">Founder &amp; CTO in Douala, Cameroon. Led full-stack engineering —
-            deploying Odoo ERP systems and custom APIs from the ground up, driving 3× user growth in 12 months.</div>
+          <div class="hc-name" data-i18n="c5-name">MISTERCOMP<br>PLATFORM</div>
+          <div class="hc-desc" data-i18n="c5-desc">Founder &amp; CTO in Douala, Cameroon. Built the entire stack — Django REST backend, Angular SPA, AWS infra, and Odoo ERP integrations. 500+ users in under 12 months.</div>
           <div class="hc-stack">
             <span class="hc-tag">Angular</span>
             <span class="hc-tag">Django</span>
             <span class="hc-tag">AWS</span>
             <span class="hc-tag">GitLab CI</span>
-            <span class="hc-tag">Tech Support</span>
+            <span class="hc-tag">PostgreSQL</span>
           </div>
-          <div class="hc-footer"><a href="https://gitlab.com/mistercomp1/" class="hc-link" target="_blank"><span
-                data-i18n="c5-link">→ VIEW ON GITLAB</span></a></div>
+          <div class="hc-footer">
+            <a href="https://gitlab.com/mistercomp1/" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c5-link">→ VIEW ON GITLAB</span>
+            </a>
+          </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-      <!-- 06 · CI & Testing — accent: cyan-teal -->
-      <div class="holo-wrap" style="--acc-rgb:0,220,200">
+      <!-- 06 · Multi-Cloud DevOps Infra — github.com/MISTERorg · teal -->
+      <div class="holo-wrap" style="--acc-rgb:0,210,200">
         <div class="holo-card">
           <div class="hc-shimmer"></div>
           <div class="hc-scanline"></div>
           <div class="hc-corner"></div>
-          <div class="hc-num" data-i18n="c6-num">06 / QA · CI/CD</div>
-          <div class="hc-ico">🧪</div>
-          <div class="hc-name" data-i18n="c6-name">CONTINUOUS<br>INTEGRATION &amp; TESTING</div>
-          <div class="hc-desc" data-i18n="c6-desc">Conducted testing, validation, and documentation of API endpoints —
-            ensuring 24/7 data accuracy, zero-regression deployments, and automated quality gates.</div>
+          <div class="hc-num" data-i18n="c6-num">06 / DEVOPS · CLOUD</div>
+          <div class="hc-ico">☁️</div>
+          <div class="hc-name" data-i18n="c6-name">MULTI-CLOUD<br>DEVOPS INFRA</div>
+          <div class="hc-desc" data-i18n="c6-desc">Containerised microservices across AWS &amp; GCP — Kubernetes, Terraform IaC, zero-downtime blue-green GitOps pipelines. Infrastructure costs cut by 65%.</div>
           <div class="hc-stack">
-            <span class="hc-tag">Cypress</span>
-            <span class="hc-tag">Playwright</span>
-            <span class="hc-tag">Selenium</span>
-            <span class="hc-tag">SonarQube</span>
+            <span class="hc-tag">Kubernetes</span>
+            <span class="hc-tag">Terraform</span>
+            <span class="hc-tag">AWS</span>
+            <span class="hc-tag">GCP</span>
+            <span class="hc-tag">ArgoCD</span>
           </div>
-          <div class="hc-footer"><a href="#" class="hc-link"><span data-i18n="c6-link">→ LEARN MORE</span></a></div>
+          <div class="hc-footer">
+            <a href="https://github.com/MISTERorg" class="hc-link" target="_blank" rel="noopener">
+              <span data-i18n="c6-link">→ VIEW ON GITHUB</span>
+            </a>
+          </div>
           <div class="hc-pulse"></div>
         </div>
       </div>
 
-    </div>
+    </div><!-- /.holo-grid -->
   </section>
 
 

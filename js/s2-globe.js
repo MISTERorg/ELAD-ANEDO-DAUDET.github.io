@@ -2,6 +2,7 @@
    SEC 2 — 3D GLOBE
    · 3D pin markers on accurate lat/lon positions
    · City names panel below globe (HTML, always clickable)
+   · Button click → globe rotates to city → card opens
    · Auto-tour: centres each city perfectly → opens card
    · Drag / click as normal after tour
 ═══════════════════════════════════════════════════ */
@@ -13,6 +14,11 @@ const rotState = { rotY: 0.4, rotX: 0.08 };
 let _tourId     = 0;
 let tourActive  = false;
 let _tourRunner = null;   // assigned at end of initGlobe()
+
+/* ── exposed from initGlobe so button clicks can rotate ── */
+let _animToCityFn    = null;
+let _setActiveCityFn = null;
+let _hudEl           = null;
 
 /** Called from core.js (scroll trigger) and flyThrough() */
 function triggerGlobeTour() {
@@ -153,7 +159,7 @@ function initGlobe() {
   var cam   = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
   cam.position.z = 3.2;
 
-  /* ── lights — use .position.set() NOT Object.assign ── */
+  /* ── lights ── */
   scene.add(new THREE.AmbientLight(0x334466, 4));
 
   var sunLight = new THREE.DirectionalLight(0xfff4e0, 1.6);
@@ -226,10 +232,7 @@ function initGlobe() {
     ));
   });
 
-  /* ── coordinate helper ─────────────────────────────
-     ll2v: lat/lon → Three.js Vector3 on the globe surface.
-     Negated X matches Three.js SphereGeometry UV orientation.
-  ─────────────────────────────────────────────────── */
+  /* ── coordinate helper ── */
   function ll2v(lat, lon, r) {
     r = r || 1.032;
     var phi   = (90 - lat) * Math.PI / 180;
@@ -242,7 +245,7 @@ function initGlobe() {
   }
 
   /* ═══════════════════════════════════════════════════
-     3D PIN MARKERS — sphere head + cylinder stick
+     3D PIN MARKERS
   ═══════════════════════════════════════════════════ */
   var cityGroup = new THREE.Group();
   var pulseDots = [];
@@ -277,7 +280,7 @@ function initGlobe() {
     city._pinHead = head;
     cityGroup.add(head);
 
-    /* thin stick — cylinder between surface and head */
+    /* thin stick */
     var stickLen  = 0.10;
     var stickMid  = outDir.clone().multiplyScalar(1.05);
     var stick = new THREE.Mesh(
@@ -285,12 +288,11 @@ function initGlobe() {
       new THREE.MeshBasicMaterial({ color: new THREE.Color(city.col), transparent: true, opacity: 0.7 })
     );
     stick.position.copy(stickMid);
-    /* orient cylinder along outDir */
     var up = new THREE.Vector3(0, 1, 0);
     stick.quaternion.setFromUnitVectors(up, outDir);
     cityGroup.add(stick);
 
-    /* halo ring around head (pulses during tour) */
+    /* halo ring */
     var halo = new THREE.Mesh(
       new THREE.RingGeometry(0.034, 0.050, 24),
       new THREE.MeshBasicMaterial({ color: new THREE.Color(city.col), transparent: true, opacity: 0.20, side: THREE.DoubleSide })
@@ -345,8 +347,6 @@ function initGlobe() {
 
   /* ═══════════════════════════════════════════════════
      CITY NAMES PANEL — populate the HTML div
-     The <div id="city-list-panel"> already exists in index.html
-     so no appendChild or DOM manipulation that could cause layout shifts
   ═══════════════════════════════════════════════════ */
   var panel = document.getElementById('city-list-panel');
   if (panel) {
@@ -359,14 +359,46 @@ function initGlobe() {
         '<div class="clist-text">' +
           '<span class="clist-name">' + city.name + '</span>' +
           '<span class="clist-role">' + city.role + '</span>' +
-        '</div>';
+        '</div>' +
+        /* Tron corner accents (pure HTML spans) */
+        '<span class="clist-corner clist-corner-tl"></span>' +
+        '<span class="clist-corner clist-corner-br"></span>';
+
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        if (!tourActive) showCity(city);
+
+        /* ── Tron fire animation ── */
+        btn.classList.remove('btn-firing');
+        void btn.offsetWidth; // force reflow so re-clicks retrigger
+        btn.classList.add('btn-firing');
+        setTimeout(function() { btn.classList.remove('btn-firing'); }, 750);
+
+        /* ── Stop any running tour ── */
+        _tourId++;
+        gsap.killTweensOf(rotState);
+        closeCity();
+        tourActive = false;
+        if (_hudEl) _hudEl.classList.remove('on');
+
+        /* ── Highlight this city ── */
+        CITIES.forEach(function(c) {
+          if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
+          if (c._halo) c._halo.material.opacity = 0.20;
+        });
+        btn.classList.add('tour-active');
+        if (city._halo) city._halo.material.opacity = 0.85;
+
+        /* ── Rotate globe to city, then open card ── */
+        if (_animToCityFn) {
+          _animToCityFn(city).then(function() {
+            showCity(city);
+          });
+        } else {
+          showCity(city);
+        }
       });
-      btn.addEventListener('mouseenter', function() { /* handled by core.js delegation */ });
-      btn.addEventListener('mouseleave', function() { /* handled by core.js delegation */ });
+
       panel.appendChild(btn);
       city._panelBtn = btn;
     });
@@ -384,6 +416,9 @@ function initGlobe() {
     '<span class="hud-skip" id="hud-skip">SKIP ✕</span>';
   wrap.appendChild(hud);
 
+  /* expose hud to module scope so button handler can hide it */
+  _hudEl = hud;
+
   document.getElementById('hud-skip').addEventListener('click', function() {
     _tourId++;
     gsap.killTweensOf(rotState);
@@ -392,7 +427,7 @@ function initGlobe() {
   });
 
   /* ═══════════════════════════════════════════════════
-     RAYCASTER — click on 3D pins
+     RAYCASTER — click on 3D pins (also rotates to city)
   ═══════════════════════════════════════════════════ */
   var raycaster  = new THREE.Raycaster();
   var mouse2     = new THREE.Vector2();
@@ -405,7 +440,18 @@ function initGlobe() {
     mouse2.y = -((e.clientY - r.top)  / r.height) * 2 + 1;
     raycaster.setFromCamera(mouse2, cam);
     var hits = raycaster.intersectObjects(rayCasts);
-    if (hits.length) showCity(hits[0].object.userData.city);
+    if (hits.length) {
+      var city = hits[0].object.userData.city;
+      /* highlight panel button */
+      CITIES.forEach(function(c) {
+        if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
+        if (c._halo) c._halo.material.opacity = 0.20;
+      });
+      if (city._panelBtn) city._panelBtn.classList.add('tour-active');
+      if (city._halo) city._halo.material.opacity = 0.85;
+      /* rotate then reveal */
+      _animToCity(city).then(function() { showCity(city); });
+    }
   });
 
   /* ═══════════════════════════════════════════════════
@@ -497,16 +543,6 @@ function initGlobe() {
   /* ═══════════════════════════════════════════════════
      TOUR ENGINE
   ═══════════════════════════════════════════════════ */
-
-  /**
-   * _cityTargetRot(city) — returns [rotY, rotX] that places the city
-   * exactly at the centre of the globe facing the camera.
-   *
-   * Derivation (negated-x ll2v convention):
-   *   lon = −90° faces the camera at rotY=0
-   *   → rotY = −(lon + 90) × π/180  (normalised to [−π, π])
-   *   → rotX = lat × π/180  (exact for this projection)
-   */
   function _cityTargetRot(city) {
     var tY = -(city.lon + 90) * Math.PI / 180;
     while (tY >  Math.PI) tY -= 2 * Math.PI;
@@ -525,6 +561,9 @@ function initGlobe() {
       gsap.to(rotState, { rotY: rot[0], rotX: rot[1], duration: 1.7, ease: 'power2.inOut', onComplete: resolve });
     });
   }
+
+  /* expose to module scope so panel buttons can call it */
+  _animToCityFn = _animToCity;
 
   function _setActiveCity(city, active) {
     CITIES.forEach(function(c) {
@@ -556,7 +595,6 @@ function initGlobe() {
       var prog = document.getElementById('hud-prog');
       if (prog) prog.textContent = (i + 1) + ' / ' + CITIES.length;
 
-      /* rotate until city is perfectly centred */
       await _animToCity(city);
       if (id !== _tourId) { _endTour(); return; }
 
@@ -646,6 +684,11 @@ function closeCity() {
   document.getElementById('cityModal').classList.remove('on');
   setTimeout(function() {
     document.getElementById('city-overlay').style.pointerEvents = 'none';
+    /* clear tour-active on all panel buttons when card closes manually */
+    CITIES.forEach(function(c) {
+      if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
+      if (c._halo) c._halo.material.opacity = 0.20;
+    });
   }, 460);
 }
 

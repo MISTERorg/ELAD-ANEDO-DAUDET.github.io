@@ -70,7 +70,7 @@ const revIO=new IntersectionObserver(entries=>{
         setTimeout(()=>{if(typeof triggerGlobeTour==='function') triggerGlobeTour();},1100);
       }
       if(id==='s3') gsap.from('.holo-wrap',{y:55,opacity:0,stagger:.1,duration:.85,ease:'power3.out'});
-      if(id==='s4') gsap.from('#neuralCanvas',{opacity:0,scale:.94,duration:.9,ease:'power2.out'});
+      if(id==='s4') gsap.from('.bn-frame',{opacity:0,y:28,stagger:.07,duration:.8,ease:'power2.out'});
       if(id==='s5') gsap.from('.cred-card',{y:42,opacity:0,stagger:.12,duration:.75,ease:'power2.out'});
     }
     if(id==='s6') initTerminal();
