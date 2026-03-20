@@ -462,17 +462,8 @@
   .bento-desc  { font-size: 9px; }
   .tech-tag    { font-size: 9px; padding: 4px 10px; }
 
-  /* Static border on mobile — no @property animation needed */
-  .bn-frame {
-    background: linear-gradient(145deg,
-      rgba(var(--bn-color), .28),
-      rgba(var(--bn-color), .08)
-    );
-    animation: none;
-  }
-  .bn-frame:hover {
-    box-shadow: 0 6px 28px rgba(var(--bn-color), .12);
-  }
+  /* Speed up beam on mobile so it's clearly visible at a glance */
+  .bn-frame { --bn-speed: 3s; }
 }
 
 /* Graceful @property fallback */
@@ -491,4 +482,46 @@
     75%  { box-shadow: 0 -2px 0 rgba(var(--bn-color),.8), 0 0 20px rgba(var(--bn-color),.1); }
     100% { box-shadow: 2px 0 0 rgba(var(--bn-color),.8), 0 0 20px rgba(var(--bn-color),.1); }
   }
+}
+
+/* ── Touch devices: beam always runs; tap triggers card glow ── */
+@media (hover: none) {
+  /* Beam runs at medium speed by default so it's always visible */
+  .bn-frame { --bn-speed: 3.5s; }
+
+  /* Tap glow on bento cards */
+  .bn-frame:active {
+    --bn-speed: 1s;
+    box-shadow:
+      0 0 44px rgba(var(--bn-color), .28),
+      0 0 88px rgba(var(--bn-color), .1),
+      0 14px 56px rgba(0,0,0,.75);
+  }
+  .bn-frame:active .bc-top { opacity: 1; }
+  .bn-frame:active .bento-card::before { opacity: 1; }
+  .bn-frame:active .bento-title {
+    text-shadow: 0 0 24px rgba(var(--bn-color), .65);
+  }
+  .bn-frame:active .bento-icon {
+    filter: drop-shadow(0 0 22px rgba(var(--bn-color), .9));
+    transform: scale(1.08);
+  }
+  .bn-frame:active .bento-badge {
+    background: rgba(var(--bn-color), .15);
+    border-color: rgba(var(--bn-color), .45);
+  }
+  .bn-frame:active .footer-text { color: rgba(200,218,245,.7); }
+  .bn-frame:active .footer-count {
+    color: rgba(var(--bn-color), 1);
+    text-shadow: 0 0 12px rgba(var(--bn-color), .6);
+  }
+
+  /* Tech tag tap glow */
+  .tech-tag:active {
+    background: rgba(var(--bn-color), .15);
+    border-color: rgba(var(--bn-color), .7);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(var(--bn-color), .22);
+  }
+  .tech-tag:active::before { transform: translateX(120%); }
 }

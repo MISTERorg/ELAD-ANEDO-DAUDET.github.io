@@ -200,13 +200,101 @@
   .hc-desc  { font-size: 10.5px; }
 }
 
-/* Touch / no-hover: disable JS tilt, keep static glass look */
+
+/* ══════════════════════════════════════════════════════
+   MOBILE — SECTION 3 MATCHES SECTION 4 BEAM ANIMATION
+   On touch devices: disable JS tilt, apply the same
+   rotating conic-gradient beam border used by s4 bento cards.
+   --hc-angle animates per card using its own --acc-rgb color.
+══════════════════════════════════════════════════════ */
+
+@property --hc-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes hc-beam-spin { to { --hc-angle: 360deg; } }
+
 @media (hover: none) {
+  /* Kill JS perspective tilt — can't drive it without a mouse */
   .holo-card {
     transform: none !important;
-    transition: box-shadow .22s;
-    border-color: rgba(var(--acc-rgb), .3) !important;
-    box-shadow: 0 6px 32px rgba(var(--acc-rgb), .1), inset 0 0 30px rgba(var(--acc-rgb), .04) !important;
+    will-change: auto;
+    border: none !important; /* beam provides the border */
   }
   .hc-ico,.hc-name,.hc-desc,.hc-num,.hc-stack,.hc-footer { transform: none !important; }
+
+  /* ── holo-wrap becomes the beam frame (like .bn-frame in s4) ──
+     1.5px padding = border thickness; conic-gradient = spinning beam;
+     each card's --acc-rgb gives it its own colour-matched beam        */
+  .holo-wrap {
+    --hc-angle: 0deg;
+    --hc-speed: 4s;
+    padding: 1.5px;
+    perspective: none; /* reset so it doesn't distort flat beam */
+    background: conic-gradient(
+      from var(--hc-angle),
+      rgba(var(--acc-rgb), .05)   0%,
+      rgba(var(--acc-rgb), .05)  60%,
+      rgba(var(--acc-rgb), .50)  72%,
+      rgba(var(--acc-rgb), .92)  78%,
+      rgba(255,255,255, .88)     80%,
+      rgba(var(--acc-rgb), .92)  82%,
+      rgba(var(--acc-rgb), .50)  88%,
+      rgba(var(--acc-rgb), .05) 100%
+    );
+    animation: hc-beam-spin var(--hc-speed) linear infinite;
+    box-shadow:
+      0 0 20px rgba(var(--acc-rgb), .08),
+      0 6px 32px rgba(0,0,0,.55);
+  }
+
+  /* ── Tap: beam speed-up + full glow burst = s4 :active behaviour ── */
+  .holo-wrap:active { --hc-speed: 1s; }
+  .holo-wrap:active {
+    box-shadow:
+      0 0 44px rgba(var(--acc-rgb), .28),
+      0 0 88px rgba(var(--acc-rgb), .1),
+      0 14px 56px rgba(0,0,0,.75);
+  }
+  .holo-wrap:active .holo-card {
+    box-shadow: inset 0 0 44px rgba(var(--acc-rgb), .08) !important;
+  }
+  .holo-wrap:active .hc-shimmer {
+    opacity: 1 !important;
+    animation: hc-sweep .8s ease-out forwards !important;
+  }
+  .holo-wrap:active .hc-ico {
+    filter: drop-shadow(0 0 22px rgba(var(--acc-rgb), .9)) !important;
+  }
+  .holo-wrap:active .hc-name {
+    text-shadow: 0 0 28px rgba(var(--acc-rgb), .6) !important;
+  }
+  .holo-wrap:active .hc-corner {
+    border-right-color: rgba(var(--acc-rgb), .65) !important;
+  }
+  .holo-wrap:active .hc-link {
+    color: rgba(var(--acc-rgb), 1) !important;
+    text-shadow: 0 0 14px rgba(var(--acc-rgb), .7) !important;
+  }
+  .holo-wrap:active .hc-tag {
+    background: rgba(var(--acc-rgb), .18) !important;
+    box-shadow: 0 0 10px rgba(var(--acc-rgb), .25) !important;
+  }
+
+  /* ── Fallback if conic-gradient @property not supported ── */
+  @supports not (background: conic-gradient(from 1deg, red, blue)) {
+    .holo-wrap {
+      padding: 0;
+      background: none;
+      animation: none;
+      border: 1px solid rgba(var(--acc-rgb), .28);
+    }
+    .holo-card { border: 1px solid rgba(var(--acc-rgb), .28) !important; }
+    .holo-wrap:active {
+      border-color: rgba(var(--acc-rgb), .65);
+      box-shadow: 0 0 28px rgba(var(--acc-rgb), .2);
+    }
+  }
 }

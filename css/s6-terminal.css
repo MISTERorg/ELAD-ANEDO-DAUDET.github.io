@@ -21,16 +21,273 @@
 .cursor-blink{display:inline-block;width:9px;height:15px;background:var(--nm);animation:cblink 1s step-end infinite;vertical-align:middle;margin-left:2px}
 @keyframes cblink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* CV Download pedestal */
-.resume-station{display:flex;align-items:center;justify-content:center;margin-top:36px;perspective:700px}
-.r-pedestal{display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform .38s}
-.r-pedestal:hover{transform:translateY(-7px) rotateX(-9deg)}
-.r-top{width:210px;height:58px;background:linear-gradient(135deg,rgba(0,242,255,.07),rgba(0,242,255,.03));border:1px solid rgba(0,242,255,.28);display:flex;align-items:center;justify-content:center;gap:10px;clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);transition:all .32s;font-family:var(--fd);font-size:9px;letter-spacing:.28em;color:var(--cb)}
-.r-pedestal:hover .r-top{background:linear-gradient(135deg,rgba(0,242,255,.14),rgba(0,242,255,.07));box-shadow:0 0 32px rgba(0,242,255,.2),0 0 0 1px rgba(0,242,255,.15)}
-.r-base{width:230px;height:11px;background:rgba(0,242,255,.04);border:1px solid rgba(0,242,255,.1);clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%)}
-.r-foot{width:250px;height:7px;background:rgba(0,242,255,.02);border:1px solid rgba(0,242,255,.07)}
+/* ════════════════════════════════════════════════
+   CV DOWNLOAD BUTTON — Professional Edition
+   Design: clean dark glass card with animated
+   corner brackets, breathing glow, scan sweep.
+   No rotating beam. No clip-path polygon.
+════════════════════════════════════════════════ */
+.resume-station {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  perspective: 800px;
+}
 
-/* Social row */
-.social-row{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap}
-.soc-btn{padding:9px 20px;background:transparent;border:1px solid rgba(0,242,255,.14);color:var(--dim);font-family:var(--fd);font-size:8px;letter-spacing:.25em;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;text-transform:uppercase}
-.soc-btn:hover{border-color:var(--cb);color:var(--cb);box-shadow:0 0 18px rgba(0,242,255,.1)}
+.r-pedestal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  /* Smooth lift on hover */
+  transition: transform .4s cubic-bezier(.16,1,.3,1), filter .4s;
+}
+.r-pedestal:hover { transform: translateY(-6px); filter: brightness(1.08); }
+
+/* ── The button face ── */
+.r-top {
+  width: 240px;
+  height: 62px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-family: var(--fd);
+  font-size: 9.5px;
+  letter-spacing: .32em;
+  color: #d8eeff;
+  text-transform: uppercase;
+  /* Dark glass background */
+  background: linear-gradient(160deg,
+    rgba(4,14,40,.95) 0%,
+    rgba(2,7,22,.98) 100%
+  );
+  border: 1px solid rgba(0,242,255,.22);
+  /* No clip-path — clean rectangle */
+  transition: border-color .35s, color .35s, background .35s;
+  overflow: hidden;
+}
+
+/* Subtle scanlines inside button */
+.r-top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,242,255,.014) 3px,
+    rgba(0,242,255,.014) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Diagonal light sweep on hover/press */
+.r-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 28%,
+    rgba(0,242,255,.09) 48%,
+    rgba(255,255,255,.07) 52%,
+    rgba(0,242,255,.09) 56%,
+    transparent 72%
+  );
+  transform: translateX(-140%);
+  pointer-events: none;
+  z-index: 1;
+  transition: none;
+}
+.r-pedestal:hover .r-top::after    { animation: cv-sweep .55s ease-out forwards; }
+.r-pedestal:hover .r-top           { border-color: rgba(0,242,255,.5); color: #fff; background: linear-gradient(160deg, rgba(4,16,48,.97) 0%, rgba(2,8,28,.99) 100%); }
+
+@keyframes cv-sweep {
+  from { transform: translateX(-140%); }
+  to   { transform: translateX(160%); }
+}
+
+/* Ensure text & icon sit above pseudo-elements */
+.r-top > * { position: relative; z-index: 2; }
+
+/* ── Animated corner brackets (4 corners) ── */
+.r-top .cv-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: 3;
+  pointer-events: none;
+  transition: width .35s, height .35s, opacity .35s;
+  opacity: .55;
+}
+.r-pedestal:hover .r-top .cv-corner { width: 14px; height: 14px; opacity: 1; }
+
+.cv-corner-tl { top: 4px; left:  4px; border-top:  1.5px solid var(--cb); border-left:  1.5px solid var(--cb); }
+.cv-corner-tr { top: 4px; right: 4px; border-top:  1.5px solid var(--cb); border-right: 1.5px solid var(--cb); }
+.cv-corner-bl { bottom: 4px; left:  4px; border-bottom: 1.5px solid var(--cb); border-left:  1.5px solid var(--cb); }
+.cv-corner-br { bottom: 4px; right: 4px; border-bottom: 1.5px solid var(--cb); border-right: 1.5px solid var(--cb); }
+
+/* ── Breathing bottom glow line (replaces bottom edge animation) ── */
+@keyframes cv-underline-pulse {
+  0%,100% { opacity: .25; transform: scaleX(.55); }
+  50%     { opacity: .7;  transform: scaleX(.95); }
+}
+.r-top-glow {
+  width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cb) 35%, var(--nm) 65%, transparent);
+  animation: cv-underline-pulse 3s ease-in-out infinite;
+  margin-top: -1px; /* flush under r-top border */
+}
+
+/* ── Breathing outer glow on the whole button ── */
+@keyframes cv-halo {
+  0%,100% { box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(0,242,255,.0); }
+  50%     { box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 28px rgba(0,242,255,.14), 0 0 0 1px rgba(0,242,255,.08); }
+}
+.r-pedestal { animation: cv-halo 4s ease-in-out infinite; }
+.r-pedestal:hover { animation: none; box-shadow: 0 12px 44px rgba(0,0,0,.65), 0 0 42px rgba(0,242,255,.22), 0 0 0 1px rgba(0,242,255,.15); }
+
+/* ── Minimal base tiers (no clip-path) ── */
+.r-base {
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(0,242,255,.18), transparent);
+  margin-top: 3px;
+  transition: opacity .35s;
+}
+.r-foot {
+  width: 160px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,242,255,.08), transparent);
+  margin-top: 3px;
+  transition: opacity .35s;
+}
+.r-pedestal:hover .r-base { background: linear-gradient(90deg, transparent, rgba(0,242,255,.35), transparent); }
+.r-pedestal:hover .r-foot { background: linear-gradient(90deg, transparent, rgba(0,242,255,.18), transparent); }
+
+/* ════════════════════════════════════════════════
+   SOCIAL ROW & BRAND COLORS
+════════════════════════════════════════════════ */
+.social-row { display:flex; gap:12px; justify-content:center; margin-top:32px; flex-wrap:wrap; }
+
+.soc-btn {
+  --brand: var(--cb); /* Default to Cyan */
+  padding: 9px 20px;
+  background: transparent;
+  border: 1px solid rgba(0,242,255,.14);
+  color: var(--dim);
+  font-family: var(--fd);
+  font-size: 8px;
+  letter-spacing: .25em;
+  cursor: pointer;
+  transition: all .25s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: uppercase;
+}
+
+/* Dynamically set the brand color based on the link URL */
+.soc-btn[href*="linkedin"] { --brand: #0A66C2; }
+.soc-btn[href*="github"]   { --brand: #ffffff; }
+.soc-btn[href*="gitlab"]   { --brand: #FC6D26; }
+.soc-btn[href*="youtube"]  { --brand: #FF0000; }
+.soc-btn[href*="email"], .soc-btn[href*="cdn-cgi"] { --brand: var(--cb); }
+
+/* Apply the brand color on hover */
+.soc-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+  box-shadow: 0 0 18px var(--brand);
+}
+.soc-btn:hover svg { fill: var(--brand); } /* Ensure icons inherit the color */
+
+
+/* ════════════════════════════════════════════════
+   MOBILE VIEW: "ALWAYS ACTIVE" CV BUTTON
+════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   MOBILE VIEW: CONSTANT GLOW & ACTIVE STATES
+════════════════════════════════════════════════ */
+@media (max-width: 768px), (hover: none) {
+  
+  /* ── 1. Social Buttons Constant Glow ── */
+  .soc-btn {
+    border-color: var(--brand) !important;
+    color: var(--brand) !important;
+    animation: mobile-soc-pulse 3s infinite ease-in-out !important;
+  }
+  
+  @keyframes mobile-soc-pulse {
+    0%, 100% { box-shadow: 0 0 10px var(--brand), inset 0 0 2px rgba(255,255,255,.05); }
+    50%      { box-shadow: 0 0 22px var(--brand), inset 0 0 8px rgba(255,255,255,.1); }
+  }
+
+  /* ── 2. Download CV Button Constant Glow ── */
+  .r-pedestal {
+    transform: translateY(-4px) !important;
+    filter: brightness(1.1) !important;
+    animation: mobile-cv-pulse 3s infinite ease-in-out !important;
+  }
+  
+  @keyframes mobile-cv-pulse {
+    0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,.6), 0 0 30px rgba(0,242,255,.15), 0 0 0 1px rgba(0,242,255,.1); }
+    50%      { box-shadow: 0 12px 40px rgba(0,0,0,.7), 0 0 55px rgba(0,242,255,.35), 0 0 0 1px rgba(0,242,255,.2); }
+  }
+
+  .r-pedestal .r-top {
+    border-color: rgba(0,242,255,.5) !important;
+    background: linear-gradient(160deg, rgba(4,16,48,.97) 0%, rgba(2,8,28,.99) 100%) !important;
+  }
+  
+  /* ── 3. CRITICAL FIX: Target Text ONLY, ignore corner brackets ── */
+  .r-pedestal .r-top span:not(.cv-corner) {
+    position: relative !important;
+    z-index: 20 !important; 
+    color: #ffffff !important; 
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.8) !important; 
+  }
+  
+  /* Expand the corner brackets permanently and keep them in their corners */
+  .r-pedestal .cv-corner {
+    width: 14px !important;
+    height: 14px !important;
+    opacity: 1 !important;
+    position: absolute !important; /* Ensures they don't break layout */
+  }
+  
+  /* Lock the base tiers to their active brightness */
+  .r-pedestal .r-base { background: linear-gradient(90deg, transparent, rgba(0,242,255,.35), transparent) !important; }
+  .r-pedestal .r-foot { background: linear-gradient(90deg, transparent, rgba(0,242,255,.18), transparent) !important; }
+
+  /* Keep the diagonal light sweep running behind the text */
+  .r-pedestal .r-top::after {
+    animation: cv-sweep 4s ease-in-out infinite !important;
+    z-index: 1 !important;
+  }
+
+  /* Slight physical tap effect */
+  .r-pedestal:active { transform: translateY(-2px) !important; filter: brightness(1.3) !important; }
+  .soc-btn:active { filter: brightness(1.3) !important; }
+}
+/* ── Touch: CV pedestal and social buttons tap glow ── */
+@media (hover: none) {
+  .r-pedestal:active { transform: translateY(-7px) rotateX(-9deg); }
+  .r-pedestal:active .r-top {
+    background: linear-gradient(135deg,rgba(0,242,255,.14),rgba(0,242,255,.07));
+    box-shadow: 0 0 32px rgba(0,242,255,.2), 0 0 0 1px rgba(0,242,255,.15);
+  }
+  .soc-btn:active {
+    border-color: var(--cb);
+    color: var(--cb);
+    box-shadow: 0 0 18px rgba(0,242,255,.15);
+  }
+}

@@ -566,12 +566,66 @@
   .arc5-gpa  { font-size: 22px; }
   .arc5-cert-title { font-size: 16px; }
   .arc5-lang-lvl   { font-size: 26px; }
-  /* Disable beam on mobile — just show static border */
-  .arc5-frame {
-    background: rgba(var(--beam-color), .22);
-    animation: none;
+  /* ── Beam runs on mobile — speed up slightly so it reads on small screens ── */
+  .arc5-frame { --beam-speed: 3s; }
+}
+
+/* ── Touch devices: full desktop animation parity ── */
+@media (hover: none) {
+  /* Beam always spinning — tap accelerates it + fires outer glow */
+  .arc5-frame:active {
+    --beam-speed: 1s;
+    box-shadow:
+      0 0 48px rgba(var(--beam-color), .28),
+      0 0 100px rgba(var(--beam-color), .1),
+      0 12px 60px rgba(0,0,0,.7);
   }
-  .arc5-frame:hover { box-shadow: 0 6px 32px rgba(var(--beam-color), .12); }
+
+  /* Inner shimmer + top accent line */
+  .arc5-frame:active .arc5-card::before { opacity: 1; }
+  .arc5-frame:active .arc5-card-top     { opacity: 1; }
+
+  /* Category label brightens */
+  .arc5-frame:active .arc5-cat { color: rgba(var(--beam-color), 1); }
+
+  /* Icon glow intensifies */
+  .arc5-frame:active .arc5-ico {
+    filter: drop-shadow(0 0 24px rgba(var(--beam-color), .8));
+  }
+
+  /* GPA / cert title glow */
+  .arc5-frame:active .arc5-gpa {
+    text-shadow:
+      0 0 32px rgba(var(--beam-color), .9),
+      0 0 64px rgba(var(--beam-color), .35);
+    filter: brightness(1.2);
+  }
+
+  /* Cert card: verify button hover state on tap */
+  .arc5-verify-btn:active {
+    background: rgba(240,192,64,.14);
+    border-color: rgba(240,192,64,.7);
+    box-shadow: 0 0 28px rgba(240,192,64,.3), inset 0 0 16px rgba(240,192,64,.08);
+    color: #fff;
+  }
+  .arc5-verify-btn:active svg { transform: translate(2px,-2px); }
+
+  /* Language items: border + bottom line + level glow on tap */
+  .arc5-lang-item:active {
+    border-color: rgba(var(--l-rgb), .55);
+    box-shadow: 0 0 28px rgba(var(--l-rgb), .16);
+    background: rgba(var(--l-rgb), .06);
+  }
+  .arc5-lang-item:active::before { opacity: .95; }
+  .arc5-lang-item:active .arc5-lang-lvl {
+    text-shadow: 0 0 32px rgba(var(--l-rgb), .9);
+  }
+
+  /* Degree / timeline dot tap state */
+  .tl-item:active .tl-dot {
+    transform: scale(1.5);
+    background: #fff;
+  }
 }
 
 /* @property unsupported fallback — graceful degradation */

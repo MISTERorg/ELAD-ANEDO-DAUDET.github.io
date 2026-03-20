@@ -459,6 +459,9 @@ function initGlobe() {
   ═══════════════════════════════════════════════════ */
   var dragging = false, prevMx = 0, prevMy = 0, dragDist = 0;
 
+  /* Prevent browser scroll-pan interfering with globe drag on touch */
+  canvas.style.touchAction = 'none';
+
   canvas.addEventListener('mousedown', function(e) {
     if (tourActive) return;
     dragging = true; prevMx = e.clientX; prevMy = e.clientY; dragDist = 0;
@@ -476,17 +479,55 @@ function initGlobe() {
     rotState.rotX  = Math.max(-1.2, Math.min(1.2, rotState.rotX));
     prevMx = e.clientX; prevMy = e.clientY;
   });
+
+  /* ── Touch: always stop the tour on first touch, then start drag ── */
   canvas.addEventListener('touchstart', function(e) {
-    if (tourActive) return;
-    dragging = true; prevMx = e.touches[0].clientX; prevMy = e.touches[0].clientY; dragDist = 0;
+    /* If a tour is running, stop it so the user can take control */
+    if (tourActive) {
+      _tourId++;
+      gsap.killTweensOf(rotState);
+      closeCity();
+      _endTour();
+    }
+    dragging = true;
+    prevMx = e.touches[0].clientX;
+    prevMy = e.touches[0].clientY;
+    dragDist = 0;
   }, { passive: true });
-  canvas.addEventListener('touchend', function() { dragging = false; clickLocked = dragDist > 8; });
+
+  /* ── Touch end: short tap → raycast for 3D pins; long drag → ignore ── */
+  canvas.addEventListener('touchend', function(e) {
+    dragging = false;
+    var wasDrag = dragDist > 10;
+    clickLocked = wasDrag;
+    if (!wasDrag && e.changedTouches.length) {
+      /* Treat a short tap as a click on 3D pins */
+      var t = e.changedTouches[0];
+      var r = canvas.getBoundingClientRect();
+      mouse2.x =  ((t.clientX - r.left) / r.width)  * 2 - 1;
+      mouse2.y = -((t.clientY - r.top)  / r.height) * 2 + 1;
+      raycaster.setFromCamera(mouse2, cam);
+      var hits = raycaster.intersectObjects(rayCasts);
+      if (hits.length) {
+        var city = hits[0].object.userData.city;
+        CITIES.forEach(function(c) {
+          if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
+          if (c._halo) c._halo.material.opacity = 0.20;
+        });
+        if (city._panelBtn) city._panelBtn.classList.add('tour-active');
+        if (city._halo) city._halo.material.opacity = 0.85;
+        _animToCity(city).then(function() { showCity(city); });
+      }
+    }
+  });
+
+  /* ── Touch move: slightly higher sensitivity than mouse for finger drag ── */
   canvas.addEventListener('touchmove', function(e) {
-    if (!dragging) return;
+    if (!dragging || !e.touches.length) return;
     var dx = e.touches[0].clientX - prevMx, dy = e.touches[0].clientY - prevMy;
     dragDist += Math.abs(dx) + Math.abs(dy);
-    rotState.rotY += dx * 0.005;
-    rotState.rotX += dy * 0.005;
+    rotState.rotY += dx * 0.007;   /* 0.005 → 0.007: finger needs less resistance */
+    rotState.rotX += dy * 0.007;
     rotState.rotX  = Math.max(-1.2, Math.min(1.2, rotState.rotX));
     prevMx = e.touches[0].clientX; prevMy = e.touches[0].clientY;
   }, { passive: true });

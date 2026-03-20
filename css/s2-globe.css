@@ -29,7 +29,9 @@
 .hud-skip{
   font-family:var(--fd);font-size:7px;letter-spacing:.2em;color:rgba(184,204,238,.28);
   cursor:pointer;pointer-events:all;margin-left:6px;
-  border-left:1px solid rgba(0,242,255,.1);padding-left:10px;transition:color .2s
+  border-left:1px solid rgba(0,242,255,.1);padding-left:10px;transition:color .2s;
+  touch-action:manipulation;
+  padding-top:8px;padding-bottom:8px; /* enlarge tap target vertically */
 }
 .hud-skip:hover{color:var(--cb)}
 
@@ -65,6 +67,10 @@
   text-align:left;
   position:relative;
   overflow:hidden;
+  /* ── Mobile: remove tap delay and ensure finger-sized target ── */
+  touch-action: manipulation;
+  min-height: 52px;          /* Apple/Google recommended minimum tap target */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* top gradient line */
@@ -105,6 +111,59 @@
 .clist-btn:hover::before{opacity:1}
 .clist-btn:hover::after{
   animation:tron-sweep .6s ease-in-out forwards;
+}
+
+/* ── Touch active state: show Tron effect on tap ── */
+.clist-btn:active{
+  background:rgba(0,12,40,.98);
+  border-color:var(--ccol,#00f2ff);
+  transform:scale(.97);
+  box-shadow:
+    0 0 0 2px var(--ccol,#00f2ff),
+    0 0 20px rgba(0,242,255,.25),
+    inset 0 0 16px rgba(0,242,255,.1);
+}
+.clist-btn:active::before{opacity:1}
+.clist-btn:active::after{
+  animation:tron-sweep .4s ease-out forwards;
+}
+.clist-btn:active .clist-corner{opacity:1}
+.clist-btn:active .clist-name{color:#fff;text-shadow:0 0 10px var(--ccol,#00f2ff)}
+
+/* ── JS-driven press (touchstart → .btn-pressing, touchend removes it)
+   Reliable on all mobile browsers — CSS :active is not guaranteed on iOS  ── */
+.clist-btn.btn-pressing{
+  background:rgba(0,12,40,.98) !important;
+  border-color:var(--ccol,#00f2ff) !important;
+  transform:scale(.97) !important;
+  box-shadow:
+    0 0 0 2px var(--ccol,#00f2ff),
+    0 0 24px rgba(0,242,255,.32),
+    inset 0 0 18px rgba(0,242,255,.14) !important;
+  transition:transform .08s ease, box-shadow .08s ease, background .08s ease !important;
+}
+.clist-btn.btn-pressing::before{opacity:1 !important}
+.clist-btn.btn-pressing::after{
+  animation:tron-sweep .4s ease-out forwards !important;
+}
+.clist-btn.btn-pressing .clist-corner{opacity:1 !important}
+.clist-btn.btn-pressing .clist-name{
+  color:#fff !important;
+  text-shadow:0 0 12px var(--ccol,#00f2ff) !important;
+}
+
+/* On touch devices: reset sticky :hover states after tap */
+@media(hover:none){
+  .clist-btn:hover{
+    transform:none;
+    background:rgba(0,4,18,.80);
+    border-color:rgba(0,242,255,.18);
+    box-shadow:none;
+  }
+  .clist-btn:hover::before{opacity:.35}
+  .clist-btn:hover::after{animation:none}
+  .clist-btn:hover .clist-name{color:#e8f0ff;text-shadow:none}
+  .clist-btn:hover .clist-corner{opacity:0}
 }
 
 @keyframes tron-sweep{
@@ -220,20 +279,41 @@
 
 /* ── Mobile ── */
 @media(max-width:480px){
-  #city-list-panel{gap:7px;width:min(580px,96vw)}
-  .clist-btn{flex:1 1 136px;max-width:165px;padding:9px 11px 9px 9px}
-  .clist-icon{font-size:16px}
-  .clist-name{font-size:7.5px}
-  .clist-role{font-size:6.5px}
+  #city-list-panel{
+    gap:7px;
+    width:min(580px,96vw);
+    /* Make the panel scrollable horizontally if buttons overflow */
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .clist-btn{
+    flex:1 1 140px;
+    max-width:172px;
+    padding:10px 12px 10px 10px;
+    min-height:54px;
+    /* Remove clip-path on mobile — it clips the hit area and looks rough on small screens */
+    clip-path: none;
+    border-radius: 2px;
+    gap:8px;
+  }
+  .clist-icon{font-size:18px}
+  .clist-name{font-size:8px;letter-spacing:.12em}
+  .clist-role{font-size:7px}
+}
+
+/* Very small phones — squeeze to single row of wider buttons */
+@media(max-width:340px){
+  .clist-btn{flex:1 1 100%;max-width:100%;min-height:50px}
 }
 
 /* ═══════════════════════════
    CITY MODAL (Rich Company Card)
 ═══════════════════════════ */
 #city-overlay{position:absolute;inset:0;z-index:20;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.city-modal{background:rgba(0,4,18,.96);border:1px solid rgba(0,242,255,.22);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);width:420px;max-width:calc(100vw - 32px);max-height:90vh;overflow-y:auto;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px));transform:scale(.86) translateY(14px);opacity:0;transition:all .45s cubic-bezier(.16,1,.3,1);pointer-events:all;position:relative;scrollbar-width:none}
+/* pointer-events:none by default — only becomes interactive when .on is added */
+.city-modal{background:rgba(0,4,18,.96);border:1px solid rgba(0,242,255,.22);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);width:420px;max-width:calc(100vw - 32px);max-height:90vh;overflow-y:auto;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px));transform:scale(.86) translateY(14px);opacity:0;transition:all .45s cubic-bezier(.16,1,.3,1);pointer-events:none;position:relative;scrollbar-width:none}
 .city-modal::-webkit-scrollbar{display:none}
-.city-modal.on{transform:scale(1) translateY(0);opacity:1}
+.city-modal.on{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
 .city-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cb) 40%,var(--nm) 60%,transparent);z-index:1}
 .city-modal::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,242,255,.18),transparent)}
 
@@ -241,7 +321,7 @@
 .cm-location-row{display:flex;align-items:center;gap:7px}
 .cm-pin{font-size:11px}
 .cm-city{font-family:var(--fd);font-size:8px;letter-spacing:.32em;color:var(--cb);opacity:.7;text-transform:uppercase}
-.cm-close{font-size:8px;color:rgba(184,204,238,.3);cursor:pointer;letter-spacing:.2em;font-family:var(--fd);background:none;border:1px solid rgba(0,242,255,.1);transition:all .2s;padding:4px 8px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);white-space:nowrap}
+.cm-close{font-size:8px;color:rgba(184,204,238,.3);cursor:pointer;letter-spacing:.2em;font-family:var(--fd);background:none;border:1px solid rgba(0,242,255,.1);transition:all .2s;padding:8px 12px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);white-space:nowrap;touch-action:manipulation;min-height:40px}
 .cm-close:hover{color:var(--cb);border-color:rgba(0,242,255,.4);background:rgba(0,242,255,.06)}
 
 .cm-identity{padding:20px 24px 16px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(0,242,255,.06)}
@@ -277,7 +357,7 @@
 .cm-tag:hover{background:rgba(0,242,255,.09);border-color:rgba(0,242,255,.32)}
 
 .cm-footer{padding:14px 24px 20px;display:flex;gap:10px}
-.cm-btn{flex:1;padding:10px;font-family:var(--fd);font-size:8px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .25s;border:1px solid;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%);background:transparent;text-align:center}
+.cm-btn{flex:1;padding:12px;font-family:var(--fd);font-size:8px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .25s;border:1px solid;clip-path:polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%);background:transparent;text-align:center;touch-action:manipulation;min-height:44px}
 .cm-btn-primary{color:var(--cb);border-color:rgba(0,242,255,.35)}
 .cm-btn-primary:hover{background:rgba(0,242,255,.08);border-color:var(--cb);box-shadow:0 0 16px rgba(0,242,255,.12)}
 .cm-btn-secondary{color:rgba(184,204,238,.4);border-color:rgba(184,204,238,.12)}

@@ -63,3 +63,122 @@
   .gstn { font-size: 20px; }
 }
 
+/* ── Touch: ENTER button tap glow (replaces :hover fill) ── */
+@media (hover: none) {
+  /* CTA button — fill sweeps in on tap */
+  .ebtn:active {
+    color: var(--obs);
+    box-shadow: var(--gcb), inset 0 0 20px rgba(0,242,255,.1);
+  }
+  .ebtn:active::before { transform: scaleX(1); }
+
+  /* 3D monogram tap pulse */
+  .emon-3d:active .emon-face {
+    border-color: rgba(0,242,255,.6);
+    background: rgba(0,242,255,.06);
+  }
+  .emon-3d:active .emon-glow { opacity: 1; transform: scale(1.1); }
+
+  /* Stat numbers tap highlight */
+  .gst:active .gstn {
+    text-shadow: var(--gcb), 0 0 80px rgba(0,242,255,.25);
+  }
+}
+
+
+/* ══════════════════════════════════════════════════
+   TRON ENHANCEMENTS — SECTION 1
+   Added on top of existing animations — no conflicts.
+   ::before on .ebtn = fill (existing)
+   ::after  on .ebtn = internal beam sweep (new)
+══════════════════════════════════════════════════ */
+
+/* ── @property for spinning beam inside ENTER button ── */
+@property --ebtn-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes ebtn-beam-spin { to { --ebtn-angle: 360deg; } }
+
+/* ── Internal conic beam that sweeps inside the button continuously ── */
+.ebtn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from var(--ebtn-angle),
+    transparent      0%,
+    transparent     74%,
+    rgba(0,242,255,.10)  80%,
+    rgba(255,255,255,.20) 83%,
+    rgba(0,255,157,.10)  86%,
+    transparent     92%
+  );
+  animation: ebtn-beam-spin 3.5s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Orbiting edge glow — light source that rotates around the button ── */
+@keyframes ebtn-orbit {
+  0%   { box-shadow: 10px 0 28px rgba(0,242,255,.5),  0 0 8px rgba(0,242,255,.08); }
+  25%  { box-shadow:  0 5px 28px rgba(0,255,157,.4),  0 0 8px rgba(0,242,255,.08); }
+  50%  { box-shadow: -10px 0 28px rgba(0,242,255,.5), 0 0 8px rgba(0,242,255,.08); }
+  75%  { box-shadow: 0 -5px 28px rgba(0,255,157,.4),  0 0 8px rgba(0,242,255,.08); }
+  100% { box-shadow: 10px 0 28px rgba(0,242,255,.5),  0 0 8px rgba(0,242,255,.08); }
+}
+/* Override animation to chain fadeup + orbit (orbit starts after fade completes) */
+.ebtn { animation: fadeup .6s ease forwards 2.4s, ebtn-orbit 3.5s linear 3s infinite; }
+
+/* ── Monogram rings: pulse glow on top of existing rotation ── */
+@keyframes ring-pulse {
+  0%,100% { opacity: 1; box-shadow: 0 0 6px rgba(0,242,255,.1); }
+  50%     { opacity: 1; box-shadow: 0 0 22px rgba(0,242,255,.45), inset 0 0 12px rgba(0,242,255,.08); }
+}
+.emon-ring  { animation: ringrot 10s linear infinite, ring-pulse 3.5s ease-in-out infinite; }
+.emon-ring2 { animation: ringrot 16s linear infinite reverse, ring-pulse 4.8s ease-in-out .9s infinite; }
+
+/* ── Stat numbers: data-flare pulse (same technique as s5 GPA numbers) ── */
+@keyframes stat-flare {
+  0%,100% { text-shadow: var(--gcb); filter: brightness(1); }
+  50%     { text-shadow: var(--gcb), 0 0 55px rgba(0,242,255,.38); filter: brightness(1.18); }
+}
+.gstn { animation: stat-flare 4s ease-in-out 3.2s infinite; }
+
+/* ── Name: very subtle glitch beat (less aggressive than loader) ── */
+@keyframes name-glitch {
+  0%,89%,100% { filter: none; transform: none; }
+  90%         { filter: hue-rotate(25deg) brightness(1.08); transform: translateX(-1px); }
+  92%         { filter: none; transform: none; }
+  94%         { filter: hue-rotate(-18deg) brightness(1.04); transform: translateX(1px); }
+  96%         { filter: none; transform: none; }
+}
+/* Chain onto existing fadeup — glitch fires after text is visible */
+.gname { animation: fadeup .9s ease forwards 1.6s, name-glitch 10s ease 5s infinite; }
+
+/* ── Scroll hint arrow: Tron data-stream colour pulse ── */
+@keyframes sarr-beam {
+  0%,100% { background: linear-gradient(180deg,var(--cb),transparent); }
+  50%     { background: linear-gradient(180deg,var(--nm),transparent); box-shadow: 0 0 8px rgba(0,255,157,.4); }
+}
+.sarr { animation: sarr-beam 2s ease-in-out infinite; }
+
+/* ── Mobile: all new effects active on tap ── */
+@media (hover: none) {
+  /* ENTER button beam speeds up + inner glow on press */
+  .ebtn.btn-pressing::after,
+  .ebtn:active::after {
+    animation: ebtn-beam-spin .8s linear infinite !important;
+  }
+  /* Stat numbers flash on tap */
+  .gst:active .gstn {
+    text-shadow: var(--gcb), 0 0 65px rgba(0,242,255,.45) !important;
+    filter: brightness(1.2);
+  }
+  /* Monogram rings flare on tap */
+  .emon-3d:active .emon-ring,
+  .emon-3d:active .emon-ring2 {
+    box-shadow: 0 0 32px rgba(0,242,255,.6) !important;
+  }
+}

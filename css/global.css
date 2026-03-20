@@ -174,3 +174,9 @@ body{width:100%;background:var(--obs);overflow-x:hidden;font-family:var(--fm);co
   #vrbtn{display:none!important}
 }
 
+/* ── Touch / coarse pointer: restore native cursor, hide custom ring ── */
+@media (hover:none),(pointer:coarse){
+  body{cursor:auto!important}
+  #cur,#curd{display:none!important}
+}
+
