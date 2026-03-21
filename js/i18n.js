@@ -77,7 +77,7 @@ const I18N = {
     's4-foot-programming': 'LANGUAGES & SCRIPTING',
 
     's4-cat-datascience':  'Data & ML',
-    's4-desc-datascience': 'ML pipelines · statistical analysis · predictive modelling · edge AI',
+    's4-desc-datascience': 'ML pipelines · statistical analysis · predictive modelling · AI embeddings',
     's4-foot-datascience': 'MACHINE LEARNING & DATA SCIENCE',
 
     's4-cat-frameworks':   'Frameworks & APIs',
@@ -85,16 +85,16 @@ const I18N = {
     's4-foot-frameworks':  'WEB & APPLICATION FRAMEWORKS',
 
     's4-cat-security':     'Security & QA',
-    's4-desc-security':    'Zero-trust · penetration testing · automated QA · SIEM · compliance',
+    's4-desc-security':    'Penetration testing · automated QA · SIEM · monitoring',
     's4-foot-security':    'CYBERSECURITY & TEST AUTOMATION',
 
-    's4-cat-monitoring':   'Monitoring & Observability',
-    's4-desc-monitoring':  'Real-time telemetry · alerting · log aggregation · incident response',
-    's4-foot-monitoring':  'OBSERVABILITY STACK',
+    's4-cat-collab':       'Collaboration & Productivity',
+    's4-desc-collab':      'Remote-first tooling · project management · async communication',
+    's4-foot-collab':      'PRODUCTIVITY & TEAMWORK STACK',
 
-    's4-cat-databases':    'Databases & Storage',
-    's4-desc-databases':   'Relational · NoSQL · in-memory caching · search · object storage',
-    's4-foot-databases':   'DATA PERSISTENCE LAYER',
+    's4-cat-privacy':      'Privacy & Compliance',
+    's4-desc-privacy':     'Regulatory frameworks · IAM · data protection · vendor risk',
+    's4-foot-privacy':     'GOVERNANCE, RISK & COMPLIANCE',
 
     /* ── S5 Archive ── */
     's5-title': 'THE ARCHIVE',
@@ -227,7 +227,7 @@ const I18N = {
     's4-foot-programming': 'LANGAGES & SCRIPTS',
 
     's4-cat-datascience':  'Données & ML',
-    's4-desc-datascience': 'Pipelines ML · analyse statistique · modélisation prédictive · edge AI',
+    's4-desc-datascience': 'Pipelines ML · analyse statistique · modélisation prédictive · embeddings IA',
     's4-foot-datascience': 'MACHINE LEARNING & DATA SCIENCE',
 
     's4-cat-frameworks':   'Frameworks & APIs',
@@ -235,16 +235,16 @@ const I18N = {
     's4-foot-frameworks':  'FRAMEWORKS WEB & APPLICATIFS',
 
     's4-cat-security':     'Sécurité & QA',
-    's4-desc-security':    'Zero-trust · tests d\'intrusion · QA automatisé · SIEM · conformité',
+    's4-desc-security':    'Tests d\'intrusion · QA automatisé · SIEM · monitoring',
     's4-foot-security':    'CYBERSÉCURITÉ & AUTOMATISATION DES TESTS',
 
-    's4-cat-monitoring':   'Monitoring & Observabilité',
-    's4-desc-monitoring':  'Télémétrie temps réel · alertes · agrégation de logs · gestion des incidents',
-    's4-foot-monitoring':  'STACK D\'OBSERVABILITÉ',
+    's4-cat-collab':       'Collaboration & Productivité',
+    's4-desc-collab':      'Outils remote-first · gestion de projets · communication async',
+    's4-foot-collab':      'STACK PRODUCTIVITÉ & TRAVAIL D\'ÉQUIPE',
 
-    's4-cat-databases':    'Bases de Données & Stockage',
-    's4-desc-databases':   'Relationnel · NoSQL · cache en mémoire · recherche · stockage objet',
-    's4-foot-databases':   'COUCHE DE PERSISTANCE DES DONNÉES',
+    's4-cat-privacy':      'Confidentialité & Conformité',
+    's4-desc-privacy':     'Cadres réglementaires · IAM · protection des données · risques fournisseurs',
+    's4-foot-privacy':     'GOUVERNANCE, RISQUES & CONFORMITÉ',
 
     's5-title': 'LES ARCHIVES',
     's5-sub':   'Diplômes · Certifications · Voûte académique',
@@ -375,7 +375,7 @@ const I18N = {
     's4-foot-programming': 'LENGUAJES & SCRIPTING',
 
     's4-cat-datascience':  'Datos & ML',
-    's4-desc-datascience': 'Pipelines ML · análisis estadístico · modelado predictivo · edge AI',
+    's4-desc-datascience': 'Pipelines ML · análisis estadístico · modelado predictivo · embeddings IA',
     's4-foot-datascience': 'MACHINE LEARNING & CIENCIA DE DATOS',
 
     's4-cat-frameworks':   'Frameworks & APIs',
@@ -383,16 +383,16 @@ const I18N = {
     's4-foot-frameworks':  'FRAMEWORKS WEB & APLICATIVOS',
 
     's4-cat-security':     'Seguridad & QA',
-    's4-desc-security':    'Zero-trust · pruebas de penetración · QA automatizado · SIEM · cumplimiento',
+    's4-desc-security':    'Pruebas de penetración · QA automatizado · SIEM · monitoreo',
     's4-foot-security':    'CIBERSEGURIDAD & AUTOMATIZACIÓN DE PRUEBAS',
 
-    's4-cat-monitoring':   'Monitoreo & Observabilidad',
-    's4-desc-monitoring':  'Telemetría en tiempo real · alertas · agregación de logs · respuesta a incidentes',
-    's4-foot-monitoring':  'STACK DE OBSERVABILIDAD',
+    's4-cat-collab':       'Colaboración & Productividad',
+    's4-desc-collab':      'Herramientas remote-first · gestión de proyectos · comunicación asíncrona',
+    's4-foot-collab':      'STACK DE PRODUCTIVIDAD & TRABAJO EN EQUIPO',
 
-    's4-cat-databases':    'Bases de Datos & Almacenamiento',
-    's4-desc-databases':   'Relacional · NoSQL · caché en memoria · búsqueda · almacenamiento de objetos',
-    's4-foot-databases':   'CAPA DE PERSISTENCIA DE DATOS',
+    's4-cat-privacy':      'Privacidad & Cumplimiento',
+    's4-desc-privacy':     'Marcos regulatorios · IAM · protección de datos · riesgo de proveedores',
+    's4-foot-privacy':     'GOBERNANZA, RIESGOS & CUMPLIMIENTO',
 
     's5-title': 'EL ARCHIVO',
     's5-sub':   'Credenciales · Certificaciones · Bóveda Académica',
@@ -523,7 +523,7 @@ const I18N = {
     's4-foot-programming': '言語 & スクリプト',
 
     's4-cat-datascience':  'データ & ML',
-    's4-desc-datascience': 'MLパイプライン · 統計分析 · 予測モデリング · エッジAI',
+    's4-desc-datascience': 'MLパイプライン · 統計分析 · 予測モデリング · AI埋め込み',
     's4-foot-datascience': 'マシーンラーニング & データサイエンス',
 
     's4-cat-frameworks':   'フレームワーク & API',
@@ -531,16 +531,16 @@ const I18N = {
     's4-foot-frameworks':  'ウェブ & アプリケーションフレームワーク',
 
     's4-cat-security':     'セキュリティ & QA',
-    's4-desc-security':    'ゼロトラスト · ペネトレーションテスト · 自動QA · SIEM · コンプライアンス',
+    's4-desc-security':    'ペネトレーションテスト · 自動QA · SIEM · モニタリング',
     's4-foot-security':    'サイバーセキュリティ & テスト自動化',
 
-    's4-cat-monitoring':   'モニタリング & オブザーバビリティ',
-    's4-desc-monitoring':  'リアルタイムテレメトリ · アラート · ログ集約 · インシデント対応',
-    's4-foot-monitoring':  'オブザーバビリティスタック',
+    's4-cat-collab':       'コラボレーション & 生産性',
+    's4-desc-collab':      'リモートファーストツール · プロジェクト管理 · 非同期コミュニケーション',
+    's4-foot-collab':      '生産性 & チームワークスタック',
 
-    's4-cat-databases':    'データベース & ストレージ',
-    's4-desc-databases':   'リレーショナル · NoSQL · インメモリキャッシュ · 検索 · オブジェクトストレージ',
-    's4-foot-databases':   'データ永続化レイヤー',
+    's4-cat-privacy':      'プライバシー & コンプライアンス',
+    's4-desc-privacy':     '規制フレームワーク · IAM · データ保護 · ベンダーリスク管理',
+    's4-foot-privacy':     'ガバナンス、リスク & コンプライアンス',
 
     's5-title': 'アーカイブ',
     's5-sub':   '資格 · 認定 · 学術記録',

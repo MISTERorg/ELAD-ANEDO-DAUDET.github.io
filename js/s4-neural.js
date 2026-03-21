@@ -14,22 +14,37 @@
    · tags: brand names, never translated                      ── */
 const BENTO_CATEGORIES = [
   {
-    id:       'devops',
-    i18nCat:  's4-cat-devops',   label: 'DevOps & Cloud',
-    i18nDesc: 's4-desc-devops',  desc:  'CI/CD · IaC · Container orchestration · Multi-cloud deployments',
-    i18nFoot: 's4-foot-devops',  foot:  'Infrastructure as Code',
-    icon:     '☁️',
-    iconHover:'⚡',
-    color:    '0,242,255',
-    speed:    '5.2s',
-    className:'devops',
+    id:       'programming',
+    i18nCat:  's4-cat-programming',   label: 'Programming',
+    i18nDesc: 's4-desc-programming',  desc:  'System scripting · data manipulation · full-stack logic',
+    i18nFoot: 's4-foot-programming',  foot:  'Languages & Scripting',
+    icon:     '💻',
+    iconHover:'🔧',
+    color:    '0,255,157',
+    speed:    '5.8s',
+    className:'programming',
     tags: [
-      'Git', 'GitLab CI/CD', 'GitHub Actions',
-      'Linux', 'Bash', 'SSH',
-      'AWS', 'GCP', 'Azure',
-      'Docker', 'Kubernetes', 'Helm', 'ArgoCD',
-      'Terraform', 'Ansible', 'Vagrant',
-      'REST APIs', 'YAML'
+      'Python', 'JavaScript', 'TypeScript',
+      'Shell Script', 'PowerShell',
+      'SQL', 'PostgreSQL', 'MySQL', 'SQLite',
+      'HTML', 'SCSS / CSS', 'PHP', 'C',
+      'YAML', 'JSON', 'XML', 'Regex'
+    ]
+  },
+  {
+    id:       'frameworks',
+    i18nCat:  's4-cat-frameworks',   label: 'Frameworks & APIs',
+    i18nDesc: 's4-desc-frameworks',  desc:  'Backend services · SPA frontends · ERP integration · REST & GraphQL',
+    i18nFoot: 's4-foot-frameworks',  foot:  'Web & Application Frameworks',
+    icon:     '⚙️',
+    iconHover:'🏗️',
+    color:    '240,192,64',
+    speed:    '6.2s',
+    className:'frameworks',
+    tags: [
+      'Django', 'Angular', 'LangChain',
+      'FastAPI', 'Ionic', 'Symfony', 'Odoo',
+      'REST API', 'GraphQL', 'gRPC', 'WebSockets'
     ]
   },
   {
@@ -44,34 +59,34 @@ const BENTO_CATEGORIES = [
     className:'automation',
     hasPulse: true,
     tags: [
-      'n8n', 'Make.com', 'UiPath', 'Robocorp',
-      'Cline', 'LangChain', 'OpenAI API',
-      'Prompt Engineering', 'Ansible',
-      'AIOps', 'AutoGPT', 'Hugging Face'
+      'n8n', 'Make.com', 'UiPath', 'Cline',
+      'OWASP ZAP', 'Robocorp', 'SonarQube', 'SQLMap',
+      'Prompt Engineering', 'OpenAI API',
+      'AIOps', 'Hugging Face'
     ]
   },
   {
-    id:       'programming',
-    i18nCat:  's4-cat-programming',   label: 'Programming',
-    i18nDesc: 's4-desc-programming',  desc:  'System scripting · data manipulation · full-stack logic',
-    i18nFoot: 's4-foot-programming',  foot:  'Languages & Scripting',
-    icon:     '💻',
-    iconHover:'🔧',
-    color:    '0,255,157',
-    speed:    '5.8s',
-    className:'programming',
+    id:       'devops',
+    i18nCat:  's4-cat-devops',   label: 'DevOps & Cloud',
+    i18nDesc: 's4-desc-devops',  desc:  'CI/CD · IaC · Container orchestration · Multi-cloud deployments',
+    i18nFoot: 's4-foot-devops',  foot:  'Infrastructure as Code',
+    icon:     '☁️',
+    iconHover:'⚡',
+    color:    '0,242,255',
+    speed:    '5.2s',
+    className:'devops',
     tags: [
-      'Python', 'TypeScript', 'JavaScript',
-      'Shell Script', 'PowerShell', 'Bash',
-      'SQL', 'C', 'PHP',
-      'HTML', 'SCSS / CSS', 'YAML',
-      'JSON', 'XML', 'Regex'
+      'Git', 'GitLab CI/CD', 'GitHub Actions',
+      'Linux', 'AWS', 'AWS S3', 'GCP',
+      'Kubernetes', 'Docker',
+      'Ansible', 'Terraform',
+      'SSH', 'Bash', 'REST APIs', 'YAML'
     ]
   },
   {
     id:       'datascience',
     i18nCat:  's4-cat-datascience',   label: 'Data & ML',
-    i18nDesc: 's4-desc-datascience',  desc:  'ML pipelines · statistical analysis · predictive modelling · edge AI',
+    i18nDesc: 's4-desc-datascience',  desc:  'ML pipelines · statistical analysis · predictive modelling · AI embeddings',
     i18nFoot: 's4-foot-datascience',  foot:  'Machine Learning & Data Science',
     icon:     '🧠',
     iconHover:'📈',
@@ -79,34 +94,15 @@ const BENTO_CATEGORIES = [
     speed:    '5.0s',
     className:'datascience',
     tags: [
-      'NumPy', 'Pandas', 'Scikit-learn',
-      'Matplotlib', 'Seaborn',
-      'TensorFlow', 'Keras',
-      'LangChain', 'EdgeAI', 'RTOS',
-      'Jupyter', 'Google Colab', 'LaTeX'
-    ]
-  },
-  {
-    id:       'frameworks',
-    i18nCat:  's4-cat-frameworks',   label: 'Frameworks & APIs',
-    i18nDesc: 's4-desc-frameworks',  desc:  'Backend services · SPA frontends · ERP integration · REST & GraphQL',
-    i18nFoot: 's4-foot-frameworks',  foot:  'Web & Application Frameworks',
-    icon:     '⚙️',
-    iconHover:'🏗️',
-    color:    '240,192,64',
-    speed:    '6.2s',
-    className:'frameworks',
-    tags: [
-      'Django', 'FastAPI', 'Symfony',
-      'Angular', 'Odoo',
-      'REST API', 'GraphQL',
-      'WebSockets', 'gRPC'
+      'NumPy', 'Pandas', 'Matplotlib', 'Seaborn',
+      'Scikit-learn', 'TensorFlow',
+      'OpenCV', 'AI Embedding'
     ]
   },
   {
     id:       'security',
     i18nCat:  's4-cat-security',   label: 'Security & QA',
-    i18nDesc: 's4-desc-security',  desc:  'Zero-trust · penetration testing · automated QA · SIEM · compliance',
+    i18nDesc: 's4-desc-security',  desc:  'Penetration testing · automated QA · SIEM · monitoring',
     i18nFoot: 's4-foot-security',  foot:  'Cybersecurity & Test Automation',
     icon:     '🛡️',
     iconHover:'🔒',
@@ -114,47 +110,43 @@ const BENTO_CATEGORIES = [
     speed:    '4.9s',
     className:'security',
     tags: [
-      'OWASP ZAP', 'SonarQube', 'SQLMap',
-      'Wireshark', 'Nmap', 'Metasploit',
-      'Cisco ASA', 'Cisco IOS', 'FortiGate',
-      'IPSec', 'Zero-Trust', 'Splunk',
-      'Selenium', 'Cypress', 'Playwright',
-      'Robocorp', 'GDPR / ISO 27001'
+      'Selenium', 'Cypress', 'Playwright', 'Robocorp',
+      'Wireshark', 'Nmap',
+      'Prometheus', 'Alertmanager', 'Datadog'
     ]
   },
   {
-    id:       'monitoring',
-    i18nCat:  's4-cat-monitoring',   label: 'Monitoring & Observability',
-    i18nDesc: 's4-desc-monitoring',  desc:  'Real-time telemetry · alerting · log aggregation · incident response',
-    i18nFoot: 's4-foot-monitoring',  foot:  'Observability Stack',
-    icon:     '📡',
-    iconHover:'📊',
+    id:       'collab',
+    i18nCat:  's4-cat-collab',   label: 'Collaboration & Productivity',
+    i18nDesc: 's4-desc-collab',  desc:  'Remote-first tooling · project management · async communication · reporting',
+    i18nFoot: 's4-foot-collab',  foot:  'Productivity & Teamwork Stack',
+    icon:     '🤝',
+    iconHover:'💬',
     color:    '255,165,0',
     speed:    '5.4s',
-    className:'monitoring',
+    className:'collab',
     tags: [
-      'Prometheus', 'Grafana', 'Alertmanager',
-      'Datadog', 'New Relic',
-      'ELK Stack', 'Kibana', 'Logstash',
-      'Splunk', 'PagerDuty',
-      'Zabbix', 'Nagios', 'Jaeger'
+      'Slack', 'Notion', 'PagerDuty',
+      'Jira', 'Confluence', 'Loom', 'Trello',
+      'Google Workspace', 'Microsoft Teams', 'Zoom', 'Outlook',
+      'PowerPoint', 'Excel', 'Toggl',
+      'diagrams.net', 'TeamViewer', 'Power BI'
     ]
   },
   {
-    id:       'databases',
-    i18nCat:  's4-cat-databases',   label: 'Databases & Storage',
-    i18nDesc: 's4-desc-databases',  desc:  'Relational · NoSQL · in-memory caching · search · object storage',
-    i18nFoot: 's4-foot-databases',  foot:  'Data Persistence Layer',
-    icon:     '🗄️',
-    iconHover:'📊',
+    id:       'privacy',
+    i18nCat:  's4-cat-privacy',   label: 'Privacy & Compliance',
+    i18nDesc: 's4-desc-privacy',  desc:  'Regulatory frameworks · identity & access management · data protection',
+    i18nFoot: 's4-foot-privacy',  foot:  'Governance, Risk & Compliance',
+    icon:     '🔐',
+    iconHover:'📋',
     color:    '0,180,255',
     speed:    '5.5s',
-    className:'databases',
+    className:'privacy',
     tags: [
-      'PostgreSQL', 'MySQL', 'SQLite',
-      'MongoDB', 'Redis',
-      'Elasticsearch', 'Apache Kafka',
-      'AWS S3', 'MinIO'
+      'ISO 27001', 'SOC 2', 'GDPR', 'CCPA', 'DPIA',
+      'IAM (1Password)', 'MFA',
+      'Zero Trust', 'Vendor Risk Management'
     ]
   }
 ];
