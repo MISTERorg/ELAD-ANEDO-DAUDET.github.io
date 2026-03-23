@@ -21,6 +21,9 @@ let _setActiveCityFn = null;
 let _hudEl           = null;
 let _hidePinLabelFn  = null;
 
+/* ── currently open city — used for live language refresh ── */
+let _openCity = null;
+
 /** Called from core.js (scroll trigger) and flyThrough() */
 function triggerGlobeTour() {
   if (!_tourRunner) return;   // globe not ready yet
@@ -33,106 +36,128 @@ function triggerGlobeTour() {
 }
 
 /* ═══════════════════════════════════════════════════
-   CITY DATA — edit to add / change entries
+   CITY DATA — resume-accurate entries
+   Each city has a unique `key` used for i18n lookups.
 ═══════════════════════════════════════════════════ */
 var CITIES = [
   {
-    name:'San Jose', country:'USA', lat:37.34, lon:-121.89,
-    role:'CyberOps Engineer',
-    company:'Cisco Systems', icon:'🔵',
-    industry:'Cybersecurity · Networking', industryCol:'#00aaff',
-    status:'Full-Time · 2022–2023',
-    metrics:[{val:'$57B',lbl:'Revenue'},{val:'85K+',lbl:'Employees'},{val:'−40%',lbl:'MTTR'}],
-    impact:['Automated threat detection workflows cutting mean-time-to-respond by 40%',
-            'Designed RESTful APIs for Odoo synchronisation across enterprise security toolchain',
-            'Developed SIEM dashboards consumed by 3 regional NOC teams'],
-    detail:"Joined Cisco's CyberOps division to harden enterprise network defences. Worked closely with SOC analysts and network architects to automate security response at scale across IOS and ASA infrastructure.",
-    tags:['Splunk','Python','Cisco ASA','SIEM','REST API','IOS','Ansible'],
-    link:'#', col:'#00aaff'
-  },
-  {
+    key: 'valencia',
     name:'Valencia', country:'Spain', lat:39.47, lon:-0.38,
-    role:'Senior DevOps Engineer',
-    company:'CloudNest Solutions', icon:'🌐',
-    industry:'Cloud Infrastructure · DevOps', industryCol:'#00f2ff',
-    status:'Remote Contract · 2023–Present',
-    metrics:[{val:'12+',lbl:'Clients'},{val:'99.98%',lbl:'Uptime SLA'},{val:'65%',lbl:'Cost Saved'}],
-    impact:['Deployed containerised microservices across multi-cloud reducing costs 65%',
-            'Led IaC migration from Bash to Terraform, cutting provisioning from 4h to 8 min',
-            'Designed GitOps pipelines with zero-downtime blue-green deployments'],
-    detail:'Remote-first DevOps consultancy working with European SaaS clients. Specialising in Kubernetes migrations, Terraform IaC, and CI/CD pipeline optimisation.',
-    tags:['Kubernetes','Terraform','AWS','GCP','Ansible','GitLab CI','Helm','ArgoCD'],
+    role:'DevOps & Automation Engineer',
+    company:'Óxido Verde', icon:'🔧',
+    industry:'E-Commerce · ERP Integration', industryCol:'#00f2ff',
+    status:'Hybrid Contract · Mar 2026–Present',
+    metrics:[{val:'−60%',lbl:'Data Latency'},{val:'99.9%',lbl:'Uptime'},{val:'−30%',lbl:'Integration Cost'}],
+    impact:[
+      'Engineered Python Integration Hub syncing Odoo ERP with TikTok Shop, eBay & 7+ high-volume platforms',
+      'Architected data transformation pipelines reducing inconsistencies by ~95% across JSON/XML & PostgreSQL',
+      'Built RESTful API connectors automating order fulfillment and inventory reconciliation at scale'
+    ],
+    detail:'Leading DevOps & automation engineering at Óxido Verde, Valencia. Architecting real-time e-commerce data infrastructure connecting Odoo Community ERP with global marketplaces — delivering 60% latency reduction and 30% integration cost savings.',
+    tags:['Python','Odoo','REST API','PostgreSQL','JSON/XML','TikTok Shop API','eBay API','Automation'],
     link:'#', col:'#00f2ff'
   },
   {
+    key: 'tokyo',
     name:'Tokyo', country:'Japan', lat:35.68, lon:139.69,
-    role:'IoT & AI Research Lead',
-    company:'ATHENA Project', icon:'🧠',
-    industry:'AI · Hardware · IoT', industryCol:'#ff6688',
-    status:'R&D · Self-Directed · 2023',
-    metrics:[{val:'<200ms',lbl:'Latency'},{val:'7B',lbl:'LLM Params'},{val:'3',lbl:'Prototypes'}],
-    impact:['Prototyped hardware-LLM fusion device with sub-200ms audio response',
-            'Integrated RTOS scheduling with Python ML pipeline on edge CPU — no GPU required',
-            'Achieved 94% intent recognition accuracy in noisy environments'],
-    detail:"Self-directed R&D project. Built the ATHENA device — a standalone voice AI with real-time multi-turn context, LangChain reasoning, and custom low-power hardware.",
-    tags:['Python','TensorFlow','LangChain','RTOS','C++','I2S Audio','IoT','EdgeAI'],
+    role:'Technical Support & Automation Engineer',
+    company:'Hosono DE', icon:'🤖',
+    industry:'AI Automation · LLMOps', industryCol:'#ff6688',
+    status:'Hybrid Contract · Oct 2025–Feb 2026',
+    metrics:[{val:'n8n+',lbl:'Automation Stack'},{val:'ISO 27001',lbl:'Compliance'},{val:'100%',lbl:'GDPR'}],
+    impact:[
+      'Built and deployed end-to-end n8n & Ansible/Semaphore automations for testing, tracking and server inventory',
+      'Refined Hosono AI — internal LLM-driven agent automating data processing for a distributed international team',
+      'Architected cloud-native IAM with MFA and least-privilege access achieving GDPR & ISO 27001 compliance'
+    ],
+    detail:'Hybrid automation engineering role in Tokyo. Deployed production n8n and Ansible/Semaphore workflows, refined an in-house LLM automation agent (Hosono AI), and engineered cloud-native IAM security frameworks across Shopify and Shopware ecosystems.',
+    tags:['n8n','Ansible','Semaphore','LLM','IAM','GDPR','Shopify','Shopware','Jira','Slack'],
     link:'#', col:'#ff6688'
   },
   {
+    key: 'prague',
     name:'Prague', country:'Czech Republic', lat:50.08, lon:14.43,
-    role:'Network Security Engineer',
-    company:'SecureForge EU', icon:'🛡️',
-    industry:'InfoSec · Zero-Trust', industryCol:'#00ff9d',
-    status:'Contract · 2021–2022',
-    metrics:[{val:'200+',lbl:'Audits Run'},{val:'0',lbl:'Breaches'},{val:'−55%',lbl:'Attack Surface'}],
-    impact:['Implemented zero-trust architecture across 14-site enterprise network',
-            'Automated weekly OWASP ZAP vulnerability scans integrated into CI/CD gates',
-            'Reduced external attack surface 55% through network segmentation'],
-    detail:'Contract engagement serving EU fintech and healthcare clients. Led network hardening, automated penetration testing, and GDPR/ISO 27001 compliance remediation.',
-    tags:['Cisco IOS','Python','OWASP ZAP','Wireshark','Zero-Trust','Nmap','FortiGate','IPSec'],
+    role:'Data & Automation Engineer',
+    company:'A-B InBev', icon:'⚗️',
+    industry:'Data Engineering · Automation', industryCol:'#00ff9d',
+    status:'Remote Contract · Feb 2024–Aug 2024',
+    metrics:[{val:'2K+',lbl:'Candidates Screened'},{val:'92%',lbl:'Match Accuracy'},{val:'99.9%',lbl:'Data Integrity'}],
+    impact:[
+      'Automated screening of 2,000+ candidates via Make.com workflows, improving matching accuracy by 92%',
+      'Reduced HR manual review time by 20+ hours through intelligent pipeline automation',
+      'Built Python data pipelines (Pandas, NumPy) with Regex PII normalisation achieving 99.9% data integrity'
+    ],
+    detail:'Remote data engineering contract at A-B InBev, one of the world\'s largest beverage companies. Built automated HR screening workflows and enterprise-grade Python data pipelines for large-scale dataset standardisation across JSON/XML and PostgreSQL workflows.',
+    tags:['Python','Make.com','Pandas','NumPy','Regex','PostgreSQL','Automation','Data Pipelines'],
     link:'#', col:'#00ff9d'
   },
   {
+    key: 'sanjose',
+    name:'San Jose', country:'USA', lat:37.34, lon:-121.89,
+    role:'CyberOps Engineer',
+    company:'Cisco Systems, Inc.', icon:'🔵',
+    industry:'Cybersecurity · Networking', industryCol:'#00aaff',
+    status:'Remote Contract · Jun 2023–Nov 2023',
+    metrics:[{val:'−20%',lbl:'MTTR'},{val:'50+',lbl:'Sites Secured'},{val:'−60%',lbl:'Provision Time'}],
+    impact:[
+      'Enhanced SOAR playbooks and security workflows, reducing Mean Time to Respond (MTTR) by 20%',
+      'Standardised and automated global security infrastructure via Ansible & Terraform across 50+ sites',
+      'Mitigated high-risk incidents and slashed provisioning time by up to 60% through IaC automation'
+    ],
+    detail:'Remote CyberOps engineering at Cisco Systems\' global headquarters. Enhanced enterprise SOAR automation, hardened security workflows, and delivered Infrastructure-as-Code rollouts scaling network security across 50+ international sites.',
+    tags:['Ansible','Terraform','SOAR','Python','IaC','Wireshark','Nmap','SIEM','Cisco IOS'],
+    link:'#', col:'#00aaff'
+  },
+  {
+    key: 'buea',
+    name:'Buea', country:'Cameroon', lat:4.15, lon:9.24,
+    role:'IT Support & Instructional Assistant',
+    company:'College of Technology', icon:'📡',
+    industry:'Academia · Network Engineering', industryCol:'#ff9900',
+    status:'Onsite Contract · Dec 2022–Jun 2023',
+    metrics:[{val:'89%',lbl:'Learning Gain'},{val:'100%',lbl:'Policy Compliance'},{val:'6+',lbl:'Lab Modules'}],
+    impact:[
+      'Provisioned and maintained enterprise-grade network infrastructure: routers, firewalls, and IAM systems',
+      'Improved student learning efficiency by up to 89% through structured enterprise networking lab protocols',
+      'Ensured full compliance with institutional security policies across all Cisco network infrastructure'
+    ],
+    detail:'Onsite Cisco IT support and instructional role at the College of Technology, Buea — the Silicon Valley of Cameroon. Maintained enterprise networking labs, designed structured curriculum materials, and mentored students in network engineering and security.',
+    tags:['Cisco','Networking','Firewalls','IAM','Linux','TCP/IP','Routing','Security'],
+    link:'#', col:'#ff9900'
+  },
+  {
+    key: 'douala',
     name:'Douala', country:'Cameroon', lat:4.05, lon:9.77,
-    role:'CTO & Co-Founder',
-    company:'MisterComp Platform', icon:'🚀',
-    industry:'SaaS · EdTech · Startup', industryCol:'#b44dff',
-    status:'Founder · 2019–2021',
-    metrics:[{val:'3×',lbl:'User Growth'},{val:'12mo',lbl:'0→Launch'},{val:'500+',lbl:'Users'}],
-    impact:['Built entire tech stack from zero — Django REST backend, Angular SPA, AWS infra',
-            'Drove 3× user growth in 12 months through data-driven iteration',
-            'Designed RESTful APIs for Odoo ERP sync across Cameroonian SMEs'],
-    detail:'Co-founded MisterComp, a B2B SaaS platform. Led product strategy, a team of 4, and cloud infra — from incorporation to 500+ active users in under 12 months.',
-    tags:['Django','Angular','AWS','Docker','GitLab CI','PostgreSQL','Redis','Odoo'],
+    role:'Lead DevOps Consultant & Full Stack Dev',
+    company:'MisterComp · Rocket 234', icon:'🚀',
+    industry:'SaaS · DevOps · Full Stack', industryCol:'#b44dff',
+    status:'Consulting · Feb 2021–Present',
+    metrics:[{val:'99.9%',lbl:'Uptime SLA'},{val:'−20%',lbl:'Release Cycles'},{val:'99.99%',lbl:'Availability'}],
+    impact:[
+      'Lead DevOps Consultant at MisterComp: defined technical strategy ensuring 99.9% operational continuity',
+      'Full Stack Developer at Rocket 234: delivered scalable solutions with 99.99% system availability',
+      'Spearheaded CI/CD pipeline automation and DevOps transformation, reducing release cycles by 20%+'
+    ],
+    detail:'Concurrent dual-role base in Douala. As Lead DevOps Consultant at MisterComp, defined technology strategy, cloud infrastructure, and cybersecurity services. As Full Stack Developer at Rocket 234, delivered production-grade full-stack platforms and orchestrated end-to-end SDLC.',
+    tags:['Django','Angular','AWS','Docker','GitLab CI','PostgreSQL','Terraform','Ansible','Odoo'],
     link:'https://gitlab.com/mistercomp1/', col:'#b44dff'
   },
   {
+    key: 'pune',
     name:'Pune', country:'India', lat:18.52, lon:73.86,
-    role:'Graduate Researcher',
+    role:'Graduate Researcher — M.Sc. Computer Science',
     company:'MIT World Peace University', icon:'🎓',
     industry:'Academia · AI / ML Research', industryCol:'#f0c040',
-    status:'M.Sc. · 2021–2023',
-    metrics:[{val:'8.52',lbl:'CGPA'},{val:'3',lbl:'Papers'},{val:'Top 5%',lbl:'Cohort'}],
-    impact:['M.Sc. Computer Science & Engineering — top 5% of cohort with 8.52 CGPA',
-            'Researched AIOps automation; paper accepted at international DevOps symposium',
-            'Designed cloud-native pipeline benchmarks comparing Kubernetes schedulers'],
-    detail:'Full-time M.Sc. at Vishwanath Karad MIT World Peace University. Focus: AI/ML systems, cloud-native DevOps, AIOps. Research on predictive incident management.',
-    tags:['Python','TensorFlow','Kubernetes','Prometheus','Research','Scikit-learn','LaTeX','GCP'],
+    status:'M.Sc. · Distinction (Top Tier) · 2021–2023',
+    metrics:[{val:'Distinction',lbl:'Grade'},{val:'2×',lbl:'Merit Scholarship'},{val:'Top Tier',lbl:'Cohort'}],
+    impact:[
+      'Awarded M.Sc. in Computer Science with Distinction — Top Tier of cohort',
+      'Received two consecutive merit-based scholarships recognising academic excellence',
+      'Research focus: AIOps automation, cloud-native DevOps, distributed infrastructure and ML pipelines'
+    ],
+    detail:'Full-time M.Sc. Computer Science at Vishwanath Karad MIT World Peace University, Pune, India. Graduated with Distinction (Top Tier) and earned two consecutive merit-based scholarships. Specialised in AIOps, predictive automation, and cloud-native systems design.',
+    tags:['Python','TensorFlow','Kubernetes','Prometheus','scikit-learn','AIOps','Research','GCP'],
     link:'#', col:'#f0c040'
-  },
-  {
-    name:'Buea', country:'Cameroon', lat:4.15, lon:9.24,
-    role:'Software Engineering Student',
-    company:'College of Technology', icon:'💻',
-    industry:'Academia · Computer Engineering', industryCol:'#ff9900',
-    status:'B.Tech · 2016–2020',
-    metrics:[{val:'4yr',lbl:'Duration'},{val:'6+',lbl:'Projects'},{val:'1st',lbl:'ICT Award'}],
-    impact:['Built foundational expertise in systems programming, networking, and architecture',
-            'Led team project: real-time campus event system in C++ and MySQL',
-            'Represented faculty at national ICT challenge — awarded "Most Impactful Solution"'],
-    detail:"B.Tech in Computer Engineering at CamTech Buea — the Silicon Valley of Cameroon. Developed core skills in low-level systems, network protocols, and full-stack development.",
-    tags:['C++','Python','Java','MySQL','Networking','Linux','Algorithms','Systems'],
-    link:'#', col:'#ff9900'
   }
 ];
 
@@ -186,6 +211,7 @@ function initGlobe() {
   /* ── textures ── */
   var loader = new THREE.TextureLoader();
   loader.crossOrigin = 'anonymous';
+
   var BASE = 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/planets/';
 
   loader.load(BASE + 'earth_atmos_2048.jpg', function(tex) {
@@ -356,15 +382,35 @@ function initGlobe() {
       var btn = document.createElement('button');
       btn.className = 'clist-btn';
       btn.style.setProperty('--ccol', city.col);
-      btn.innerHTML =
-        '<span class="clist-icon">' + city.icon + '</span>' +
-        '<div class="clist-text">' +
-          '<span class="clist-name">' + city.name + '</span>' +
-          '<span class="clist-role">' + city.role + '</span>' +
-        '</div>' +
-        /* Tron corner accents (pure HTML spans) */
-        '<span class="clist-corner clist-corner-tl"></span>' +
-        '<span class="clist-corner clist-corner-br"></span>';
+
+      var iconSpan = document.createElement('span');
+      iconSpan.className = 'clist-icon';
+      iconSpan.textContent = city.icon;
+
+      var textDiv = document.createElement('div');
+      textDiv.className = 'clist-text';
+
+      var nameSpan = document.createElement('span');
+      nameSpan.className = 'clist-name';
+      nameSpan.textContent = city.name;
+
+      var roleSpan = document.createElement('span');
+      roleSpan.className = 'clist-role';
+      roleSpan.textContent = city.role;
+      city._roleEl = roleSpan;   // store ref for language refresh
+
+      textDiv.appendChild(nameSpan);
+      textDiv.appendChild(roleSpan);
+
+      var cornerTL = document.createElement('span');
+      cornerTL.className = 'clist-corner clist-corner-tl';
+      var cornerBR = document.createElement('span');
+      cornerBR.className = 'clist-corner clist-corner-br';
+
+      btn.appendChild(iconSpan);
+      btn.appendChild(textDiv);
+      btn.appendChild(cornerTL);
+      btn.appendChild(cornerBR);
 
       btn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -372,7 +418,7 @@ function initGlobe() {
 
         /* ── Tron fire animation ── */
         btn.classList.remove('btn-firing');
-        void btn.offsetWidth; // force reflow so re-clicks retrigger
+        void btn.offsetWidth;
         btn.classList.add('btn-firing');
         setTimeout(function() { btn.classList.remove('btn-firing'); }, 750);
 
@@ -430,20 +476,20 @@ function initGlobe() {
   wrap.appendChild(pinLabelEl);
 
   function showPinLabel(city) {
-    /* Project the pin-head world position to 2D canvas coords.
-       After _animToCity the globe is stationary, so one snapshot is enough. */
+    /* Project the pin-head world position to 2D canvas coords. */
     var localPos = ll2v(city.lat, city.lon, 1.16);
     var euler    = new THREE.Euler(rotState.rotX, rotState.rotY, 0, 'XYZ');
     var worldPos = localPos.clone().applyEuler(euler);
-    var projected = worldPos.project(cam);          // NDC [-1..1]
+    var projected = worldPos.project(cam);
 
-    /* Only show if the pin is facing the camera */
     if (projected.z > 1) return;
 
     var wW = wrap.clientWidth  || W;
     var wH = wrap.clientHeight || H;
     var px = ( projected.x * 0.5 + 0.5) * wW;
     var py = (-projected.y * 0.5 + 0.5) * wH;
+
+    var tr = getCityTranslated(city);
 
     pinLabelEl.style.left = px + 'px';
     pinLabelEl.style.top  = py + 'px';
@@ -452,7 +498,7 @@ function initGlobe() {
       '<div class="pnl-text">' +
         '<span class="pnl-name" style="color:' + city.col + '">' + city.name + '</span>' +
         '<span class="pnl-country">' + city.country + '</span>' +
-        '<span class="pnl-role">' + city.role + '</span>' +
+        '<span class="pnl-role">' + tr.role + '</span>' +
       '</div>';
     pinLabelEl.style.borderColor = city.col + '55';
     pinLabelEl.className = 'on';
@@ -462,7 +508,6 @@ function initGlobe() {
     pinLabelEl.classList.remove('on');
   }
 
-  /* expose so module-level cancel paths can call it */
   _hidePinLabelFn = hidePinLabel;
 
   document.getElementById('hud-skip').addEventListener('click', function() {
@@ -489,14 +534,12 @@ function initGlobe() {
     var hits = raycaster.intersectObjects(rayCasts);
     if (hits.length) {
       var city = hits[0].object.userData.city;
-      /* highlight panel button */
       CITIES.forEach(function(c) {
         if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
         if (c._halo) c._halo.material.opacity = 0.20;
       });
       if (city._panelBtn) city._panelBtn.classList.add('tour-active');
       if (city._halo) city._halo.material.opacity = 0.85;
-      /* rotate then reveal */
       _animToCity(city).then(function() { showCity(city); });
     }
   });
@@ -506,7 +549,6 @@ function initGlobe() {
   ═══════════════════════════════════════════════════ */
   var dragging = false, prevMx = 0, prevMy = 0, dragDist = 0;
 
-  /* Prevent browser scroll-pan interfering with globe drag on touch */
   canvas.style.touchAction = 'none';
 
   canvas.addEventListener('mousedown', function(e) {
@@ -527,9 +569,7 @@ function initGlobe() {
     prevMx = e.clientX; prevMy = e.clientY;
   });
 
-  /* ── Touch: always stop the tour on first touch, then start drag ── */
   canvas.addEventListener('touchstart', function(e) {
-    /* If a tour is running, stop it so the user can take control */
     if (tourActive) {
       _tourId++;
       gsap.killTweensOf(rotState);
@@ -543,13 +583,11 @@ function initGlobe() {
     dragDist = 0;
   }, { passive: true });
 
-  /* ── Touch end: short tap → raycast for 3D pins; long drag → ignore ── */
   canvas.addEventListener('touchend', function(e) {
     dragging = false;
     var wasDrag = dragDist > 10;
     clickLocked = wasDrag;
     if (!wasDrag && e.changedTouches.length) {
-      /* Treat a short tap as a click on 3D pins */
       var t = e.changedTouches[0];
       var r = canvas.getBoundingClientRect();
       mouse2.x =  ((t.clientX - r.left) / r.width)  * 2 - 1;
@@ -569,12 +607,11 @@ function initGlobe() {
     }
   });
 
-  /* ── Touch move: slightly higher sensitivity than mouse for finger drag ── */
   canvas.addEventListener('touchmove', function(e) {
     if (!dragging || !e.touches.length) return;
     var dx = e.touches[0].clientX - prevMx, dy = e.touches[0].clientY - prevMy;
     dragDist += Math.abs(dx) + Math.abs(dy);
-    rotState.rotY += dx * 0.007;   /* 0.005 → 0.007: finger needs less resistance */
+    rotState.rotY += dx * 0.007;
     rotState.rotX += dy * 0.007;
     rotState.rotX  = Math.max(-1.2, Math.min(1.2, rotState.rotX));
     prevMx = e.touches[0].clientX; prevMy = e.touches[0].clientY;
@@ -651,7 +688,6 @@ function initGlobe() {
     });
   }
 
-  /* expose to module scope so panel buttons can call it */
   _animToCityFn = _animToCity;
 
   function _setActiveCity(city, active) {
@@ -693,7 +729,6 @@ function initGlobe() {
       await _delay(200);
       if (id !== _tourId) { _endTour(); return; }
 
-      /* Show pin label — no modal card during tour */
       showPinLabel(city);
 
       await _delay(2400);
@@ -711,16 +746,61 @@ function initGlobe() {
     }
   }
 
-  /* wire up the public entry point */
   _tourRunner = _runTour;
 
 } /* end initGlobe */
 
 
 /* ═══════════════════════════════════════════════════
+   i18n HELPER — returns translated city content
+   Falls back to the raw city object values if no
+   translation key is found for the current language.
+═══════════════════════════════════════════════════ */
+function getCityTranslated(city) {
+  var t = {};
+  if (typeof I18N !== 'undefined' && typeof getLang === 'function') {
+    t = I18N[getLang()] || {};
+  }
+  var k = city.key || '';
+  return {
+    role:     t['city-' + k + '-role']     || city.role,
+    industry: t['city-' + k + '-industry'] || city.industry,
+    status:   t['city-' + k + '-status']   || city.status,
+    metrics:  (city.metrics || []).map(function(m, i) {
+      return { val: m.val, lbl: t['city-' + k + '-m' + (i + 1) + '-lbl'] || m.lbl };
+    }),
+    impact:   (city.impact || []).map(function(item, i) {
+      return t['city-' + k + '-i' + (i + 1)] || item;
+    }),
+    detail:   t['city-' + k + '-detail'] || city.detail,
+  };
+}
+
+/* ── Refresh panel button role labels when language switches ── */
+function refreshCityPanel() {
+  CITIES.forEach(function(city) {
+    if (city._roleEl) {
+      city._roleEl.textContent = getCityTranslated(city).role;
+    }
+  });
+}
+window.refreshCityPanel = refreshCityPanel;
+
+
+/* ═══════════════════════════════════════════════════
    CITY MODAL — show / close
 ═══════════════════════════════════════════════════ */
 function showCity(city) {
+  _openCity = city;
+  var tr = getCityTranslated(city);
+
+  /* ── get UI strings from i18n, with English fallbacks ── */
+  var uiT = {};
+  if (typeof I18N !== 'undefined' && typeof getLang === 'function') {
+    uiT = I18N[getLang()] || {};
+  }
+  var s = function(key, fb) { return uiT[key] !== undefined ? uiT[key] : fb; };
+
   document.getElementById('cm-city').textContent        = city.name + ', ' + city.country;
   document.getElementById('cm-logo').textContent         = city.icon || '🏢';
   document.getElementById('cm-logo').style.background    = 'linear-gradient(135deg,' + city.col + '18,' + city.col + '06)';
@@ -728,17 +808,38 @@ function showCity(city) {
   document.getElementById('cm-company-name').textContent = city.company;
 
   var ind = document.getElementById('cm-industry');
-  ind.textContent       = city.industry;
+  ind.textContent       = tr.industry;
   ind.style.color       = city.industryCol || city.col;
   ind.style.borderColor = (city.industryCol || city.col) + '44';
   ind.style.background  = (city.industryCol || city.col) + '08';
 
-  document.getElementById('cm-status-text').textContent = city.status || 'Active';
-  document.getElementById('cm-role').textContent        = city.role;
+  document.getElementById('cm-status-text').textContent = tr.status || 'Active';
+  document.getElementById('cm-role').textContent        = tr.role;
+
+  /* ── static section labels ── */
+  var posLabel = document.querySelector('#cityModal .cm-role-label');
+  if (posLabel) posLabel.textContent = s('cm-position-label', 'Position Held');
+
+  var impactLabel = document.querySelector('#cityModal .cm-impact-block .cm-section-label');
+  if (impactLabel) impactLabel.textContent = s('cm-impact-label', 'Key Impact');
+
+  var overviewLabel = document.querySelector('#cityModal .cm-detail-block .cm-section-label');
+  if (overviewLabel) overviewLabel.textContent = s('cm-overview-label', 'Overview');
+
+  var stackLabel = document.querySelector('#cityModal .cm-tags-block .cm-section-label');
+  if (stackLabel) stackLabel.textContent = s('cm-stack-label', 'Tech Stack');
+
+  /* ── header close button ── */
+  var closeXBtn = document.querySelector('#cityModal .cm-close');
+  if (closeXBtn) closeXBtn.textContent = s('cm-close-x', '✕ CLOSE');
+
+  /* ── footer close button ── */
+  var closeFootBtn = document.querySelector('#cityModal .cm-btn-secondary');
+  if (closeFootBtn) closeFootBtn.textContent = s('cm-btn-close', '← CLOSE');
 
   var mVals = ['cm-m1-val','cm-m2-val','cm-m3-val'];
   var mLbls = ['cm-m1-lbl','cm-m2-lbl','cm-m3-lbl'];
-  (city.metrics || []).forEach(function(m, i) {
+  (tr.metrics || []).forEach(function(m, i) {
     document.getElementById(mVals[i]).textContent      = m.val;
     document.getElementById(mVals[i]).style.color      = city.col;
     document.getElementById(mVals[i]).style.textShadow = '0 0 12px ' + city.col + '55';
@@ -747,14 +848,14 @@ function showCity(city) {
 
   var impactEl = document.getElementById('cm-impact');
   impactEl.innerHTML = '';
-  (city.impact || []).forEach(function(item) {
+  (tr.impact || []).forEach(function(item) {
     var div = document.createElement('div');
     div.className = 'cm-impact-item';
     div.innerHTML = '<span class="cm-impact-arrow" style="color:' + city.col + '">▸</span><span>' + item + '</span>';
     impactEl.appendChild(div);
   });
 
-  document.getElementById('cm-detail').textContent = city.detail || '';
+  document.getElementById('cm-detail').textContent = tr.detail || '';
   document.getElementById('cm-tags').innerHTML = (city.tags || [])
     .map(function(t) { return '<span class="cm-tag" style="border-color:' + city.col + '22;color:' + city.col + '">' + t + '</span>'; })
     .join('');
@@ -762,6 +863,7 @@ function showCity(city) {
   var btn = document.getElementById('cm-btn-primary');
   btn.style.borderColor = city.col + '66';
   btn.style.color       = city.col;
+  btn.textContent       = s('cm-btn-view', '→ VIEW PROFILE');
   btn.onclick = function() {
     if (city.link && city.link !== '#') window.open(city.link, '_blank');
     else closeCity();
@@ -771,11 +873,19 @@ function showCity(city) {
   document.getElementById('city-overlay').style.pointerEvents = 'all';
 }
 
+/* Re-render the open modal in the new language (called from setGlobalLang) */
+function refreshOpenModal() {
+  if (_openCity && document.getElementById('cityModal').classList.contains('on')) {
+    showCity(_openCity);
+  }
+}
+window.refreshOpenModal = refreshOpenModal;
+
 function closeCity() {
+  _openCity = null;
   document.getElementById('cityModal').classList.remove('on');
   setTimeout(function() {
     document.getElementById('city-overlay').style.pointerEvents = 'none';
-    /* clear tour-active on all panel buttons when card closes manually */
     CITIES.forEach(function(c) {
       if (c._panelBtn) c._panelBtn.classList.remove('tour-active');
       if (c._halo) c._halo.material.opacity = 0.20;

@@ -2,6 +2,7 @@
    i18n.js — Global Language Switcher
    Covers: EN · FR · ES · JA
    All 8 s4 neural-map categories translated in every language.
+   Globe city content keyed as city-{key}-{field}.
 ═══════════════════════════════════════════════════ */
 
 const I18N = {
@@ -39,7 +40,7 @@ const I18N = {
 
     'c3-num':  '03 / DATA · INTEGRATION',
     'c3-name': 'MULTI-PLATFORM<br>DATA PIPELINES',
-    'c3-desc': 'Developed and optimised Python automation scripts for large-scale multi-platform data integration and transformation at A-B InBev (Prague) and Makana-Partners (Tokyo).',
+    'c3-desc': 'Developed and optimised Python automation scripts for large-scale multi-platform data integration and transformation at A-B InBev (Prague) and Hosono DE (Tokyo).',
     'c3-link': '→ VIEW ON GITHUB',
 
     'c4-num':  '04 / AUTOMATION · AIOPS',
@@ -104,7 +105,7 @@ const I18N = {
     's5-c1-deg1-label': 'M.Sc.',
     's5-c1-deg1':       'M.Sc. Computer Science',
     's5-c1-uni1':       'MIT World Peace University, Pune',
-    's5-c1-gpa1':       '8.52 / 10 CGPA',
+    's5-c1-gpa1':       'Distinction (Top Tier)',
     's5-c1-badge':      '2× MERIT SCHOLARSHIP',
     's5-c1-deg2':       'B.Tech Software Engineering',
     's5-c1-uni2':       'University of Buea, Cameroon',
@@ -143,9 +144,9 @@ const I18N = {
       [1900, '<span class="t-line"><span class="t-out">  NAME  </span><span class="t-val">  Elad Anedo Daudet Ikeorah</span></span>'],
       [2100, '<span class="t-line"><span class="t-out">  ROLE  </span><span class="t-val">  DevOps · AIOps · Automation Expert</span></span>'],
       [2300, '<span class="t-line"><span class="t-out">  EMAIL </span><span class="t-val">  eladdaudet1918@gmail.com</span></span>'],
-      [2500, '<span class="t-line"><span class="t-out">  TEL   </span><span class="t-val">  +1 (240) 261 3649 · +91 89834 61149</span></span>'],
-      [2700, '<span class="t-line"><span class="t-out">  BASE  </span><span class="t-val">  Silver Spring, MD, USA</span></span>'],
-      [2900, '<span class="t-line"><span class="t-out">  EXP   </span><span class="t-val">  6+ years · 9 cities · 4 languages</span></span>'],
+      [2500, '<span class="t-line"><span class="t-out">  TEL   </span><span class="t-val">  +91 89834 61149</span></span>'],
+      [2700, '<span class="t-line"><span class="t-out">  BASE  </span><span class="t-val">  Valencia, Spain · Open to Relocation</span></span>'],
+      [2900, '<span class="t-line"><span class="t-out">  EXP   </span><span class="t-val">  6+ years · 7 cities · 4 languages</span></span>'],
       [3100, '<span class="t-line"><span class="t-out">╚═════════════════════════════════════════════╝</span></span>'],
       [3700, '<span class="t-line"><span class="t-prompt">system@nexus:~$</span> <span class="t-cmd">ls ./links/</span></span>'],
       [4200, '<span class="t-line"><span class="t-warn">linkedin/  github/  gitlab/  youtube/  email/</span></span>'],
@@ -156,6 +157,101 @@ const I18N = {
       [5900, '<span class="t-line"><span class="t-dim">youtube  </span><span class="t-info"> youtube.com/@eladdaudet</span></span>'],
       [6300, '<span class="t-line"><span class="t-prompt">system@nexus:~$</span> <span class="t-out">ready to connect. <span class="cursor-blink"></span></span></span>'],
     ],
+
+    /* ── Globe modal UI strings ── */
+    'cm-close-x':        '✕ CLOSE',
+    'cm-position-label': 'Position Held',
+    'cm-impact-label':   'Key Impact',
+    'cm-overview-label': 'Overview',
+    'cm-stack-label':    'Tech Stack',
+    'cm-btn-view':       '→ VIEW PROFILE',
+    'cm-btn-close':      '← CLOSE',
+
+    /* ── Globe city translations ── */
+
+    /* Valencia */
+    'city-valencia-role':     'DevOps & Automation Engineer',
+    'city-valencia-industry': 'E-Commerce · ERP Integration',
+    'city-valencia-status':   'Hybrid Contract · Mar 2026–Present',
+    'city-valencia-m1-lbl':   'Data Latency',
+    'city-valencia-m2-lbl':   'Uptime',
+    'city-valencia-m3-lbl':   'Integration Cost',
+    'city-valencia-i1': 'Engineered Python Integration Hub syncing Odoo ERP with TikTok Shop, eBay & 7+ high-volume platforms',
+    'city-valencia-i2': 'Architected data transformation pipelines reducing inconsistencies by ~95% across JSON/XML & PostgreSQL',
+    'city-valencia-i3': 'Built RESTful API connectors automating order fulfillment and inventory reconciliation at scale',
+    'city-valencia-detail': 'Leading DevOps & automation engineering at Óxido Verde, Valencia. Architecting real-time e-commerce data infrastructure connecting Odoo Community ERP with global marketplaces — delivering 60% latency reduction and 30% integration cost savings.',
+
+    /* Tokyo */
+    'city-tokyo-role':     'Technical Support & Automation Engineer',
+    'city-tokyo-industry': 'AI Automation · LLMOps',
+    'city-tokyo-status':   'Hybrid Contract · Oct 2025–Feb 2026',
+    'city-tokyo-m1-lbl':   'Automation Stack',
+    'city-tokyo-m2-lbl':   'Compliance',
+    'city-tokyo-m3-lbl':   'GDPR',
+    'city-tokyo-i1': 'Built and deployed end-to-end n8n & Ansible/Semaphore automations for testing, tracking and server inventory',
+    'city-tokyo-i2': 'Refined Hosono AI — internal LLM-driven agent automating data processing for a distributed international team',
+    'city-tokyo-i3': 'Architected cloud-native IAM with MFA and least-privilege access achieving GDPR & ISO 27001 compliance',
+    'city-tokyo-detail': 'Hybrid automation engineering role in Tokyo. Deployed production n8n and Ansible/Semaphore workflows, refined an in-house LLM automation agent (Hosono AI), and engineered cloud-native IAM security frameworks across Shopify and Shopware ecosystems.',
+
+    /* Prague */
+    'city-prague-role':     'Data & Automation Engineer',
+    'city-prague-industry': 'Data Engineering · Automation',
+    'city-prague-status':   'Remote Contract · Feb 2024–Aug 2024',
+    'city-prague-m1-lbl':   'Candidates Screened',
+    'city-prague-m2-lbl':   'Match Accuracy',
+    'city-prague-m3-lbl':   'Data Integrity',
+    'city-prague-i1': 'Automated screening of 2,000+ candidates via Make.com workflows, improving matching accuracy by 92%',
+    'city-prague-i2': 'Reduced HR manual review time by 20+ hours through intelligent pipeline automation',
+    'city-prague-i3': 'Built Python data pipelines (Pandas, NumPy) with Regex PII normalisation achieving 99.9% data integrity',
+    'city-prague-detail': 'Remote data engineering contract at A-B InBev, one of the world\'s largest beverage companies. Built automated HR screening workflows and enterprise-grade Python data pipelines for large-scale dataset standardisation across JSON/XML and PostgreSQL workflows.',
+
+    /* San Jose */
+    'city-sanjose-role':     'CyberOps Engineer',
+    'city-sanjose-industry': 'Cybersecurity · Networking',
+    'city-sanjose-status':   'Remote Contract · Jun 2023–Nov 2023',
+    'city-sanjose-m1-lbl':   'MTTR',
+    'city-sanjose-m2-lbl':   'Sites Secured',
+    'city-sanjose-m3-lbl':   'Provision Time',
+    'city-sanjose-i1': 'Enhanced SOAR playbooks and security workflows, reducing Mean Time to Respond (MTTR) by 20%',
+    'city-sanjose-i2': 'Standardised and automated global security infrastructure via Ansible & Terraform across 50+ sites',
+    'city-sanjose-i3': 'Mitigated high-risk incidents and slashed provisioning time by up to 60% through IaC automation',
+    'city-sanjose-detail': 'Remote CyberOps engineering at Cisco Systems\' global headquarters. Enhanced enterprise SOAR automation, hardened security workflows, and delivered Infrastructure-as-Code rollouts scaling network security across 50+ international sites.',
+
+    /* Buea */
+    'city-buea-role':     'IT Support & Instructional Assistant',
+    'city-buea-industry': 'Academia · Network Engineering',
+    'city-buea-status':   'Onsite Contract · Dec 2022–Jun 2023',
+    'city-buea-m1-lbl':   'Learning Gain',
+    'city-buea-m2-lbl':   'Policy Compliance',
+    'city-buea-m3-lbl':   'Lab Modules',
+    'city-buea-i1': 'Provisioned and maintained enterprise-grade network infrastructure: routers, firewalls, and IAM systems',
+    'city-buea-i2': 'Improved student learning efficiency by up to 89% through structured enterprise networking lab protocols',
+    'city-buea-i3': 'Ensured full compliance with institutional security policies across all Cisco network infrastructure',
+    'city-buea-detail': 'Onsite Cisco IT support and instructional role at the College of Technology, Buea — the Silicon Valley of Cameroon. Maintained enterprise networking labs, designed structured curriculum materials, and mentored students in network engineering and security.',
+
+    /* Douala */
+    'city-douala-role':     'Lead DevOps Consultant & Full Stack Dev',
+    'city-douala-industry': 'SaaS · DevOps · Full Stack',
+    'city-douala-status':   'Consulting · Feb 2021–Present',
+    'city-douala-m1-lbl':   'Uptime SLA',
+    'city-douala-m2-lbl':   'Release Cycles',
+    'city-douala-m3-lbl':   'Availability',
+    'city-douala-i1': 'Lead DevOps Consultant at MisterComp: defined technical strategy ensuring 99.9% operational continuity',
+    'city-douala-i2': 'Full Stack Developer at Rocket 234: delivered scalable solutions with 99.99% system availability',
+    'city-douala-i3': 'Spearheaded CI/CD pipeline automation and DevOps transformation, reducing release cycles by 20%+',
+    'city-douala-detail': 'Concurrent dual-role base in Douala. As Lead DevOps Consultant at MisterComp, defined technology strategy, cloud infrastructure, and cybersecurity services. As Full Stack Developer at Rocket 234, delivered production-grade full-stack platforms and orchestrated end-to-end SDLC.',
+
+    /* Pune */
+    'city-pune-role':     'Graduate Researcher — M.Sc. Computer Science',
+    'city-pune-industry': 'Academia · AI / ML Research',
+    'city-pune-status':   'M.Sc. · Distinction (Top Tier) · 2021–2023',
+    'city-pune-m1-lbl':   'Grade',
+    'city-pune-m2-lbl':   'Merit Scholarship',
+    'city-pune-m3-lbl':   'Cohort',
+    'city-pune-i1': 'Awarded M.Sc. in Computer Science with Distinction — Top Tier of cohort',
+    'city-pune-i2': 'Received two consecutive merit-based scholarships recognising academic excellence',
+    'city-pune-i3': 'Research focus: AIOps automation, cloud-native DevOps, distributed infrastructure and ML pipelines',
+    'city-pune-detail': 'Full-time M.Sc. Computer Science at Vishwanath Karad MIT World Peace University, Pune, India. Graduated with Distinction (Top Tier) and earned two consecutive merit-based scholarships. Specialised in AIOps, predictive automation, and cloud-native systems design.',
   },
 
   /* ══════════════════════════════════════════
@@ -190,7 +286,7 @@ const I18N = {
 
     'c3-num':  '03 / DONNÉES · INTÉGRATION',
     'c3-name': 'PIPELINES DE DONNÉES<br>MULTI-PLATEFORMES',
-    'c3-desc': 'Développement et optimisation de scripts Python pour l\'intégration et transformation massives de données multi-plateformes chez A-B InBev (Prague) et Makana-Partners (Tokyo).',
+    'c3-desc': 'Développement et optimisation de scripts Python pour l\'intégration et transformation massives de données multi-plateformes chez A-B InBev (Prague) et Hosono DE (Tokyo).',
     'c3-link': '→ VOIR SUR GITHUB',
 
     'c4-num':  '04 / AUTOMATISATION · AIOPS',
@@ -253,7 +349,7 @@ const I18N = {
     's5-c1-deg1-label': 'M.Sc.',
     's5-c1-deg1':       'M.Sc. Informatique',
     's5-c1-uni1':       'MIT World Peace University, Pune',
-    's5-c1-gpa1':       '8,52 / 10 CGPA',
+    's5-c1-gpa1':       'Distinction (Haut niveau)',
     's5-c1-badge':      '2× BOURSE AU MÉRITE',
     's5-c1-deg2':       'B.Tech Génie Logiciel',
     's5-c1-uni2':       'Université de Buea, Cameroun',
@@ -291,9 +387,9 @@ const I18N = {
       [1900, '<span class="t-line"><span class="t-out">  NOM    </span><span class="t-val">  Elad Anedo Daudet Ikeorah</span></span>'],
       [2100, '<span class="t-line"><span class="t-out">  RÔLE   </span><span class="t-val">  DevOps · AIOps · Expert en Automatisation</span></span>'],
       [2300, '<span class="t-line"><span class="t-out">  EMAIL  </span><span class="t-val">  eladdaudet1918@gmail.com</span></span>'],
-      [2500, '<span class="t-line"><span class="t-out">  TÉL    </span><span class="t-val">  +1 (240) 261 3649 · +91 89834 61149</span></span>'],
-      [2700, '<span class="t-line"><span class="t-out">  BASE   </span><span class="t-val">  Silver Spring, MD, USA</span></span>'],
-      [2900, '<span class="t-line"><span class="t-out">  EXP    </span><span class="t-val">  6+ ans · 9 villes · 4 langues</span></span>'],
+      [2500, '<span class="t-line"><span class="t-out">  TÉL    </span><span class="t-val">  +91 89834 61149</span></span>'],
+      [2700, '<span class="t-line"><span class="t-out">  BASE   </span><span class="t-val">  Valence, Espagne · Mobilité internationale</span></span>'],
+      [2900, '<span class="t-line"><span class="t-out">  EXP    </span><span class="t-val">  6+ ans · 7 villes · 4 langues</span></span>'],
       [3100, '<span class="t-line"><span class="t-out">╚═════════════════════════════════════════════╝</span></span>'],
       [3700, '<span class="t-line"><span class="t-prompt">système@nexus:~$</span> <span class="t-cmd">ls ./liens/</span></span>'],
       [4200, '<span class="t-line"><span class="t-warn">linkedin/  github/  gitlab/  youtube/  email/</span></span>'],
@@ -304,6 +400,101 @@ const I18N = {
       [5900, '<span class="t-line"><span class="t-dim">youtube  </span><span class="t-info"> youtube.com/@eladdaudet</span></span>'],
       [6300, '<span class="t-line"><span class="t-prompt">système@nexus:~$</span> <span class="t-out">prêt à connecter. <span class="cursor-blink"></span></span></span>'],
     ],
+
+    /* ── Globe modal UI strings (FR) ── */
+    'cm-close-x':        '✕ FERMER',
+    'cm-position-label': 'Poste occupé',
+    'cm-impact-label':   'Impact clé',
+    'cm-overview-label': 'Aperçu',
+    'cm-stack-label':    'Stack technique',
+    'cm-btn-view':       '→ VOIR LE PROFIL',
+    'cm-btn-close':      '← FERMER',
+
+    /* ── Globe city translations (FR) ── */
+
+    /* Valencia */
+    'city-valencia-role':     'Ingénieur DevOps & Automatisation',
+    'city-valencia-industry': 'E-Commerce · Intégration ERP',
+    'city-valencia-status':   'Contrat hybride · Mar 2026–Présent',
+    'city-valencia-m1-lbl':   'Latence des données',
+    'city-valencia-m2-lbl':   'Disponibilité',
+    'city-valencia-m3-lbl':   'Coût d\'intégration',
+    'city-valencia-i1': 'Développement d\'un hub Python synchronisant Odoo ERP avec TikTok Shop, eBay et 7+ plateformes à fort volume',
+    'city-valencia-i2': 'Architecture de pipelines de transformation réduisant les incohérences de ~95% via JSON/XML & PostgreSQL',
+    'city-valencia-i3': 'Création de connecteurs API REST automatisant la gestion des commandes et la réconciliation des stocks',
+    'city-valencia-detail': 'Ingénierie DevOps et automatisation chez Óxido Verde, Valence. Architecture d\'une infrastructure de données e-commerce en temps réel reliant Odoo Community ERP aux marchés mondiaux — réduction de la latence de 60% et des coûts d\'intégration de 30%.',
+
+    /* Tokyo */
+    'city-tokyo-role':     'Ingénieur Support Technique & Automatisation',
+    'city-tokyo-industry': 'Automatisation IA · LLMOps',
+    'city-tokyo-status':   'Contrat hybride · Oct 2025–Fév 2026',
+    'city-tokyo-m1-lbl':   'Stack d\'automatisation',
+    'city-tokyo-m2-lbl':   'Conformité',
+    'city-tokyo-m3-lbl':   'RGPD',
+    'city-tokyo-i1': 'Déploiement de workflows n8n & Ansible/Semaphore de bout en bout pour tests, suivi et gestion de serveurs',
+    'city-tokyo-i2': 'Amélioration de Hosono AI — agent LLM interne automatisant le traitement de données pour une équipe internationale',
+    'city-tokyo-i3': 'Architecture IAM cloud-native avec MFA et moindre privilège pour la conformité RGPD & ISO 27001',
+    'city-tokyo-detail': 'Mission d\'ingénierie d\'automatisation hybride à Tokyo. Déploiement de workflows n8n et Ansible/Semaphore en production, amélioration d\'un agent LLM interne (Hosono AI) et conception de frameworks IAM cloud-native pour les écosystèmes Shopify et Shopware.',
+
+    /* Prague */
+    'city-prague-role':     'Ingénieur Données & Automatisation',
+    'city-prague-industry': 'Ingénierie des données · Automatisation',
+    'city-prague-status':   'Contrat à distance · Fév 2024–Août 2024',
+    'city-prague-m1-lbl':   'Candidats évalués',
+    'city-prague-m2-lbl':   'Précision de correspondance',
+    'city-prague-m3-lbl':   'Intégrité des données',
+    'city-prague-i1': 'Automatisation du tri de 2 000+ candidats via Make.com, améliorant la précision de correspondance de 92%',
+    'city-prague-i2': 'Réduction du temps de révision manuelle RH de 20+ heures grâce à l\'automatisation des pipelines',
+    'city-prague-i3': 'Pipelines Python (Pandas, NumPy) avec normalisation PII pour une intégrité de données de 99,9%',
+    'city-prague-detail': 'Contrat d\'ingénierie des données à distance chez A-B InBev, l\'une des plus grandes entreprises de boissons. Automatisation des workflows de tri RH et développement de pipelines Python robustes pour la standardisation de datasets à grande échelle.',
+
+    /* San Jose */
+    'city-sanjose-role':     'Ingénieur CyberOps',
+    'city-sanjose-industry': 'Cybersécurité · Réseaux',
+    'city-sanjose-status':   'Contrat à distance · Juin 2023–Nov 2023',
+    'city-sanjose-m1-lbl':   'MTTR',
+    'city-sanjose-m2-lbl':   'Sites sécurisés',
+    'city-sanjose-m3-lbl':   'Temps de provisioning',
+    'city-sanjose-i1': 'Amélioration des playbooks SOAR et workflows de sécurité, réduisant le MTTR de 20%',
+    'city-sanjose-i2': 'Standardisation et automatisation de l\'infrastructure de sécurité mondiale via Ansible & Terraform sur 50+ sites',
+    'city-sanjose-i3': 'Mitigation des incidents à haut risque et réduction du temps de provisioning de 60% via l\'IaC',
+    'city-sanjose-detail': 'Ingénierie CyberOps à distance au siège mondial de Cisco Systems. Amélioration de l\'automatisation SOAR, renforcement des workflows de sécurité et déploiements IaC à grande échelle sur 50+ sites internationaux.',
+
+    /* Buea */
+    'city-buea-role':     'Assistant Support IT & Formation',
+    'city-buea-industry': 'Académique · Génie des réseaux',
+    'city-buea-status':   'Contrat sur site · Déc 2022–Juin 2023',
+    'city-buea-m1-lbl':   'Gain d\'apprentissage',
+    'city-buea-m2-lbl':   'Conformité des politiques',
+    'city-buea-m3-lbl':   'Modules de lab',
+    'city-buea-i1': 'Installation et maintenance d\'infrastructure réseau d\'entreprise : routeurs, pare-feu et systèmes IAM',
+    'city-buea-i2': 'Amélioration de l\'efficacité d\'apprentissage des étudiants jusqu\'à 89% via des protocoles de lab structurés',
+    'city-buea-i3': 'Conformité complète aux politiques de sécurité institutionnelles sur toute l\'infrastructure réseau Cisco',
+    'city-buea-detail': 'Rôle support IT Cisco et formation au Collège de Technologie de Buea — la Silicon Valley du Cameroun. Maintenance des laboratoires réseau d\'entreprise, conception de matériaux pédagogiques structurés et accompagnement des étudiants en ingénierie réseau.',
+
+    /* Douala */
+    'city-douala-role':     'Consultant DevOps Principal & Développeur Full Stack',
+    'city-douala-industry': 'SaaS · DevOps · Full Stack',
+    'city-douala-status':   'Conseil · Fév 2021–Présent',
+    'city-douala-m1-lbl':   'SLA de disponibilité',
+    'city-douala-m2-lbl':   'Cycles de release',
+    'city-douala-m3-lbl':   'Disponibilité',
+    'city-douala-i1': 'Consultant DevOps principal chez MisterComp : stratégie technique assurant 99,9% de continuité opérationnelle',
+    'city-douala-i2': 'Développeur Full Stack chez Rocket 234 : solutions évolutives avec 99,99% de disponibilité système',
+    'city-douala-i3': 'Automatisation des pipelines CI/CD et transformation DevOps, réduisant les cycles de release de 20%+',
+    'city-douala-detail': 'Double rôle concurrent à Douala. Consultant DevOps Lead chez MisterComp pour définir la stratégie technologique et l\'infrastructure cloud. Développeur Full Stack chez Rocket 234 pour la livraison de plateformes web en production avec une disponibilité quasi-parfaite.',
+
+    /* Pune */
+    'city-pune-role':     'Chercheur diplômé — M.Sc. Informatique',
+    'city-pune-industry': 'Académique · Recherche IA / ML',
+    'city-pune-status':   'M.Sc. · Distinction (Haut niveau) · 2021–2023',
+    'city-pune-m1-lbl':   'Mention',
+    'city-pune-m2-lbl':   'Bourse au mérite',
+    'city-pune-m3-lbl':   'Promotion',
+    'city-pune-i1': 'M.Sc. en Informatique avec Distinction obtenu — niveau supérieur de la promotion',
+    'city-pune-i2': 'Deux bourses consécutives au mérite reconnaissant l\'excellence académique',
+    'city-pune-i3': 'Axes de recherche : AIOps, automatisation prédictive, DevOps cloud-native et infrastructure distribuée',
+    'city-pune-detail': 'M.Sc. Informatique à temps plein à Vishwanath Karad MIT World Peace University, Pune, Inde. Diplômé avec Distinction (niveau supérieur) et deux bourses consécutives au mérite. Spécialisation : AIOps, automatisation prédictive et conception de systèmes cloud-native.',
   },
 
   /* ══════════════════════════════════════════
@@ -338,7 +529,7 @@ const I18N = {
 
     'c3-num':  '03 / DATOS · INTEGRACIÓN',
     'c3-name': 'PIPELINES DE DATOS<br>MULTIPLATAFORMA',
-    'c3-desc': 'Desarrollo y optimización de scripts Python para integración y transformación masiva de datos multiplataforma en A-B InBev (Praga) y Makana-Partners (Tokio).',
+    'c3-desc': 'Desarrollo y optimización de scripts Python para integración y transformación masiva de datos multiplataforma en A-B InBev (Praga) y Hosono DE (Tokio).',
     'c3-link': '→ VER EN GITHUB',
 
     'c4-num':  '04 / AUTOMATIZACIÓN · AIOPS',
@@ -401,7 +592,7 @@ const I18N = {
     's5-c1-deg1-label': 'M.Sc.',
     's5-c1-deg1':       'M.Sc. Ciencias de la Computación',
     's5-c1-uni1':       'MIT World Peace University, Pune',
-    's5-c1-gpa1':       '8,52 / 10 CGPA',
+    's5-c1-gpa1':       'Distinción (Nivel Superior)',
     's5-c1-badge':      '2× BECA AL MÉRITO',
     's5-c1-deg2':       'B.Tech Ingeniería de Software',
     's5-c1-uni2':       'Universidad de Buea, Camerún',
@@ -439,9 +630,9 @@ const I18N = {
       [1900, '<span class="t-line"><span class="t-out">  NOMBRE </span><span class="t-val">  Elad Anedo Daudet Ikeorah</span></span>'],
       [2100, '<span class="t-line"><span class="t-out">  ROL    </span><span class="t-val">  DevOps · AIOps · Experto en Automatización</span></span>'],
       [2300, '<span class="t-line"><span class="t-out">  EMAIL  </span><span class="t-val">  eladdaudet1918@gmail.com</span></span>'],
-      [2500, '<span class="t-line"><span class="t-out">  TEL    </span><span class="t-val">  +1 (240) 261 3649 · +91 89834 61149</span></span>'],
-      [2700, '<span class="t-line"><span class="t-out">  BASE   </span><span class="t-val">  Silver Spring, MD, USA</span></span>'],
-      [2900, '<span class="t-line"><span class="t-out">  EXP    </span><span class="t-val">  6+ años · 9 ciudades · 4 idiomas</span></span>'],
+      [2500, '<span class="t-line"><span class="t-out">  TEL    </span><span class="t-val">  +91 89834 61149</span></span>'],
+      [2700, '<span class="t-line"><span class="t-out">  BASE   </span><span class="t-val">  Valencia, España · Movilidad internacional</span></span>'],
+      [2900, '<span class="t-line"><span class="t-out">  EXP    </span><span class="t-val">  6+ años · 7 ciudades · 4 idiomas</span></span>'],
       [3100, '<span class="t-line"><span class="t-out">╚═════════════════════════════════════════════╝</span></span>'],
       [3700, '<span class="t-line"><span class="t-prompt">sistema@nexus:~$</span> <span class="t-cmd">ls ./enlaces/</span></span>'],
       [4200, '<span class="t-line"><span class="t-warn">linkedin/  github/  gitlab/  youtube/  email/</span></span>'],
@@ -452,6 +643,101 @@ const I18N = {
       [5900, '<span class="t-line"><span class="t-dim">youtube  </span><span class="t-info"> youtube.com/@eladdaudet</span></span>'],
       [6300, '<span class="t-line"><span class="t-prompt">sistema@nexus:~$</span> <span class="t-out">listo para conectar. <span class="cursor-blink"></span></span></span>'],
     ],
+
+    /* ── Globe modal UI strings (ES) ── */
+    'cm-close-x':        '✕ CERRAR',
+    'cm-position-label': 'Cargo ocupado',
+    'cm-impact-label':   'Impacto clave',
+    'cm-overview-label': 'Resumen',
+    'cm-stack-label':    'Stack tecnológico',
+    'cm-btn-view':       '→ VER PERFIL',
+    'cm-btn-close':      '← CERRAR',
+
+    /* ── Globe city translations (ES) ── */
+
+    /* Valencia */
+    'city-valencia-role':     'Ingeniero DevOps & Automatización',
+    'city-valencia-industry': 'E-Commerce · Integración ERP',
+    'city-valencia-status':   'Contrato híbrido · Mar 2026–Presente',
+    'city-valencia-m1-lbl':   'Latencia de datos',
+    'city-valencia-m2-lbl':   'Disponibilidad',
+    'city-valencia-m3-lbl':   'Costo de integración',
+    'city-valencia-i1': 'Hub de integración Python sincronizando Odoo ERP con TikTok Shop, eBay y 7+ plataformas de alto volumen',
+    'city-valencia-i2': 'Pipelines de transformación reduciendo inconsistencias en ~95% vía JSON/XML y PostgreSQL',
+    'city-valencia-i3': 'Conectores API REST automatizando gestión de pedidos y reconciliación de inventario a escala',
+    'city-valencia-detail': 'Liderando ingeniería DevOps y automatización en Óxido Verde, Valencia. Arquitectura de infraestructura de datos e-commerce en tiempo real conectando Odoo Community ERP con mercados globales — reducción de latencia del 60% y costos de integración del 30%.',
+
+    /* Tokyo */
+    'city-tokyo-role':     'Ingeniero de Soporte Técnico & Automatización',
+    'city-tokyo-industry': 'Automatización IA · LLMOps',
+    'city-tokyo-status':   'Contrato híbrido · Oct 2025–Feb 2026',
+    'city-tokyo-m1-lbl':   'Stack de automatización',
+    'city-tokyo-m2-lbl':   'Conformidad',
+    'city-tokyo-m3-lbl':   'RGPD',
+    'city-tokyo-i1': 'Despliegue de automatizaciones n8n & Ansible/Semaphore de extremo a extremo para pruebas, seguimiento e inventario',
+    'city-tokyo-i2': 'Mejora de Hosono AI — agente LLM interno automatizando el procesamiento de datos para un equipo internacional',
+    'city-tokyo-i3': 'IAM cloud-native con MFA y mínimo privilegio logrando conformidad GDPR & ISO 27001',
+    'city-tokyo-detail': 'Rol de ingeniería de automatización híbrida en Tokio. Despliegue de workflows n8n y Ansible/Semaphore en producción, mejora del agente LLM interno (Hosono AI) y diseño de frameworks IAM cloud-native para ecosistemas Shopify y Shopware.',
+
+    /* Prague */
+    'city-prague-role':     'Ingeniero de Datos & Automatización',
+    'city-prague-industry': 'Ingeniería de Datos · Automatización',
+    'city-prague-status':   'Contrato remoto · Feb 2024–Ago 2024',
+    'city-prague-m1-lbl':   'Candidatos analizados',
+    'city-prague-m2-lbl':   'Precisión de emparejamiento',
+    'city-prague-m3-lbl':   'Integridad de datos',
+    'city-prague-i1': 'Automatización de selección de 2.000+ candidatos mediante Make.com, mejorando precisión un 92%',
+    'city-prague-i2': 'Reducción del tiempo de revisión manual de RRHH en más de 20 horas mediante automatización inteligente',
+    'city-prague-i3': 'Pipelines Python (Pandas, NumPy) con normalización PII logrando 99,9% de integridad de datos',
+    'city-prague-detail': 'Contrato remoto de ingeniería de datos en A-B InBev, una de las mayores empresas de bebidas del mundo. Construcción de workflows automatizados de selección de RRHH y pipelines Python robustos para estandarización de datos a gran escala.',
+
+    /* San Jose */
+    'city-sanjose-role':     'Ingeniero CyberOps',
+    'city-sanjose-industry': 'Ciberseguridad · Redes',
+    'city-sanjose-status':   'Contrato remoto · Jun 2023–Nov 2023',
+    'city-sanjose-m1-lbl':   'MTTR',
+    'city-sanjose-m2-lbl':   'Sitios asegurados',
+    'city-sanjose-m3-lbl':   'Tiempo de aprovisionamiento',
+    'city-sanjose-i1': 'Mejora de playbooks SOAR y flujos de seguridad, reduciendo MTTR un 20%',
+    'city-sanjose-i2': 'Estandarización y automatización de infraestructura de seguridad global vía Ansible & Terraform en 50+ sitios',
+    'city-sanjose-i3': 'Mitigación de incidentes de alto riesgo y reducción del tiempo de aprovisionamiento hasta un 60% mediante IaC',
+    'city-sanjose-detail': 'Ingeniería CyberOps remota en la sede global de Cisco Systems. Automatización SOAR mejorada, flujos de trabajo de seguridad reforzados y despliegues IaC escalando la seguridad de red en 50+ sitios internacionales.',
+
+    /* Buea */
+    'city-buea-role':     'Asistente de Soporte IT & Instrucción',
+    'city-buea-industry': 'Academia · Ingeniería de Redes',
+    'city-buea-status':   'Contrato presencial · Dic 2022–Jun 2023',
+    'city-buea-m1-lbl':   'Mejora del aprendizaje',
+    'city-buea-m2-lbl':   'Cumplimiento de políticas',
+    'city-buea-m3-lbl':   'Módulos de laboratorio',
+    'city-buea-i1': 'Aprovisionamiento y mantenimiento de infraestructura de red empresarial: routers, firewalls y sistemas IAM',
+    'city-buea-i2': 'Mejora de la eficiencia de aprendizaje estudiantil hasta un 89% mediante protocolos estructurados de laboratorio',
+    'city-buea-i3': 'Cumplimiento total de políticas de seguridad institucionales en toda la infraestructura de red Cisco',
+    'city-buea-detail': 'Rol de soporte IT Cisco e instrucción en el Colegio de Tecnología de Buea — el Silicon Valley de Camerún. Mantenimiento de laboratorios de redes empresariales, diseño de materiales curriculares estructurados y tutoría a estudiantes en ingeniería de redes.',
+
+    /* Douala */
+    'city-douala-role':     'Consultor DevOps Principal & Desarrollador Full Stack',
+    'city-douala-industry': 'SaaS · DevOps · Full Stack',
+    'city-douala-status':   'Consultoría · Feb 2021–Presente',
+    'city-douala-m1-lbl':   'SLA de disponibilidad',
+    'city-douala-m2-lbl':   'Ciclos de lanzamiento',
+    'city-douala-m3-lbl':   'Disponibilidad',
+    'city-douala-i1': 'Consultor DevOps principal en MisterComp: estrategia técnica garantizando 99,9% de continuidad operacional',
+    'city-douala-i2': 'Desarrollador Full Stack en Rocket 234: soluciones escalables con 99,99% de disponibilidad del sistema',
+    'city-douala-i3': 'Automatización de pipelines CI/CD y transformación DevOps, reduciendo ciclos de lanzamiento un 20%+',
+    'city-douala-detail': 'Doble rol simultáneo en Duala. Como Consultor DevOps Principal en MisterComp, definición de estrategia tecnológica e infraestructura cloud. Como Desarrollador Full Stack en Rocket 234, entrega de plataformas web en producción con disponibilidad casi perfecta.',
+
+    /* Pune */
+    'city-pune-role':     'Investigador graduado — M.Sc. Ciencias de la Computación',
+    'city-pune-industry': 'Academia · Investigación IA / ML',
+    'city-pune-status':   'M.Sc. · Distinción (Nivel Superior) · 2021–2023',
+    'city-pune-m1-lbl':   'Calificación',
+    'city-pune-m2-lbl':   'Beca al mérito',
+    'city-pune-m3-lbl':   'Cohorte',
+    'city-pune-i1': 'Obtención de M.Sc. en Ciencias de la Computación con Distinción — nivel superior de la cohorte',
+    'city-pune-i2': 'Dos becas consecutivas al mérito reconociendo la excelencia académica',
+    'city-pune-i3': 'Investigación en AIOps, automatización predictiva, DevOps cloud-native y sistemas distribuidos',
+    'city-pune-detail': 'M.Sc. Ciencias de la Computación a tiempo completo en Vishwanath Karad MIT World Peace University, Pune, India. Graduado con Distinción (Nivel Superior) y dos becas consecutivas al mérito. Especialización: AIOps, automatización predictiva y diseño de sistemas cloud-native.',
   },
 
   /* ══════════════════════════════════════════
@@ -486,7 +772,7 @@ const I18N = {
 
     'c3-num':  '03 / データ · 統合',
     'c3-name': 'マルチプラットフォーム<br>データパイプライン',
-    'c3-desc': 'A-B InBev（プラハ）とMakana-Partners（東京）でPython自動化スクリプトを開発・最適化し、大規模マルチプラットフォームデータの統合と変換を実現。',
+    'c3-desc': 'A-B InBev（プラハ）とHosono DE（東京）でPython自動化スクリプトを開発・最適化し、大規模マルチプラットフォームデータの統合と変換を実現。',
     'c3-link': '→ GitHubで見る',
 
     'c4-num':  '04 / 自動化 · AIOPS',
@@ -549,7 +835,7 @@ const I18N = {
     's5-c1-deg1-label': '修士',
     's5-c1-deg1':       '理学修士 コンピュータサイエンス',
     's5-c1-uni1':       'MITワールドピース大学、プネー',
-    's5-c1-gpa1':       '8.52 / 10 CGPA',
+    's5-c1-gpa1':       '優秀（最上位）',
     's5-c1-badge':      '2× 成績優秀奨学金',
     's5-c1-deg2':       '工学士 ソフトウェアエンジニアリング',
     's5-c1-uni2':       'ブエア大学、カメルーン',
@@ -587,9 +873,9 @@ const I18N = {
       [1900, '<span class="t-line"><span class="t-out">  名前    </span><span class="t-val">  Elad Anedo Daudet Ikeorah</span></span>'],
       [2100, '<span class="t-line"><span class="t-out">  役職    </span><span class="t-val">  DevOps · AIOps · 自動化エキスパート</span></span>'],
       [2300, '<span class="t-line"><span class="t-out">  メール  </span><span class="t-val">  eladdaudet1918@gmail.com</span></span>'],
-      [2500, '<span class="t-line"><span class="t-out">  電話    </span><span class="t-val">  +1 (240) 261 3649 · +91 89834 61149</span></span>'],
-      [2700, '<span class="t-line"><span class="t-out">  拠点    </span><span class="t-val">  シルバースプリング, MD, アメリカ</span></span>'],
-      [2900, '<span class="t-line"><span class="t-out">  経験    </span><span class="t-val">  6年以上 · 9都市 · 4言語</span></span>'],
+      [2500, '<span class="t-line"><span class="t-out">  電話    </span><span class="t-val">  +91 89834 61149</span></span>'],
+      [2700, '<span class="t-line"><span class="t-out">  拠点    </span><span class="t-val">  バレンシア、スペイン · リロケーション可</span></span>'],
+      [2900, '<span class="t-line"><span class="t-out">  経験    </span><span class="t-val">  6年以上 · 7都市 · 4言語</span></span>'],
       [3100, '<span class="t-line"><span class="t-out">╚═════════════════════════════════════════════╝</span></span>'],
       [3700, '<span class="t-line"><span class="t-prompt">システム@nexus:~$</span> <span class="t-cmd">ls ./リンク/</span></span>'],
       [4200, '<span class="t-line"><span class="t-warn">linkedin/  github/  gitlab/  youtube/  email/</span></span>'],
@@ -600,6 +886,101 @@ const I18N = {
       [5900, '<span class="t-line"><span class="t-dim">youtube  </span><span class="t-info"> youtube.com/@eladdaudet</span></span>'],
       [6300, '<span class="t-line"><span class="t-prompt">システム@nexus:~$</span> <span class="t-out">接続準備完了。 <span class="cursor-blink"></span></span></span>'],
     ],
+
+    /* ── Globe modal UI strings (JA) ── */
+    'cm-close-x':        '✕ 閉じる',
+    'cm-position-label': '担当ポジション',
+    'cm-impact-label':   '主な成果',
+    'cm-overview-label': '概要',
+    'cm-stack-label':    '技術スタック',
+    'cm-btn-view':       '→ プロフィールを見る',
+    'cm-btn-close':      '← 閉じる',
+
+    /* ── Globe city translations (JA) ── */
+
+    /* Valencia */
+    'city-valencia-role':     'DevOps・自動化エンジニア',
+    'city-valencia-industry': 'Eコマース · ERP統合',
+    'city-valencia-status':   'ハイブリッド契約 · 2026年3月〜現在',
+    'city-valencia-m1-lbl':   'データ遅延',
+    'city-valencia-m2-lbl':   '稼働率',
+    'city-valencia-m3-lbl':   '統合コスト',
+    'city-valencia-i1': 'Odoo ERPとTikTok Shop、eBayなど7以上のプラットフォームを同期するPython統合ハブを構築',
+    'city-valencia-i2': 'JSON/XML・PostgreSQL全体でデータの不整合を約95%削減するデータ変換パイプラインを設計',
+    'city-valencia-i3': '受注処理と在庫照合を大規模に自動化するRESTful APIコネクターを構築',
+    'city-valencia-detail': 'バレンシアのÓxido VerdeでDevOps・自動化エンジニアリングをリード。Odoo Community ERPとグローバルマーケットプレイスを接続するリアルタイムECデータインフラを構築 — レイテンシ60%削減、統合コスト30%削減を達成。',
+
+    /* Tokyo */
+    'city-tokyo-role':     'テクニカルサポート・自動化エンジニア',
+    'city-tokyo-industry': 'AI自動化 · LLMOps',
+    'city-tokyo-status':   'ハイブリッド契約 · 2025年10月〜2026年2月',
+    'city-tokyo-m1-lbl':   '自動化スタック',
+    'city-tokyo-m2-lbl':   'コンプライアンス',
+    'city-tokyo-m3-lbl':   'GDPR',
+    'city-tokyo-i1': 'テスト・追跡・サーバー管理のためのn8n・Ansible/Semaphoreエンドツーエンド自動化を構築・展開',
+    'city-tokyo-i2': '社内LLM自動化エージェント「Hosono AI」を改良し、分散型国際チームのデータ処理を自動化',
+    'city-tokyo-i3': 'MFAと最小権限アクセス実装のクラウドネイティブIAMを設計しGDPR・ISO 27001準拠を達成',
+    'city-tokyo-detail': '東京でのハイブリッド自動化エンジニアリング業務。n8n・Ansible/Semaphoreワークフローを本番環境に展開し、社内LLM自動化エージェント（Hosono AI）を改良。ShopifyおよびShopwareエコシステム全体でクラウドネイティブIAMセキュリティフレームワークを設計。',
+
+    /* Prague */
+    'city-prague-role':     'データ・自動化エンジニア',
+    'city-prague-industry': 'データエンジニアリング · 自動化',
+    'city-prague-status':   'リモート契約 · 2024年2月〜2024年8月',
+    'city-prague-m1-lbl':   '候補者審査数',
+    'city-prague-m2-lbl':   'マッチング精度',
+    'city-prague-m3-lbl':   'データ整合性',
+    'city-prague-i1': 'Make.comワークフローで2,000人以上の候補者スクリーニングを自動化し、マッチング精度を92%に向上',
+    'city-prague-i2': 'インテリジェントパイプライン自動化により、HR手動審査時間を20時間以上削減',
+    'city-prague-i3': 'PII正規化によるPython（Pandas、NumPy）データパイプラインで99.9%のデータ整合性を実現',
+    'city-prague-detail': 'A-B InBev（世界最大の飲料会社の一つ）でのリモートデータエンジニアリング契約。大規模データセット標準化のため、自動HRスクリーニングワークフローと企業グレードのPythonデータパイプラインを構築。',
+
+    /* San Jose */
+    'city-sanjose-role':     'CyberOpsエンジニア',
+    'city-sanjose-industry': 'サイバーセキュリティ · ネットワーキング',
+    'city-sanjose-status':   'リモート契約 · 2023年6月〜2023年11月',
+    'city-sanjose-m1-lbl':   'MTTR',
+    'city-sanjose-m2-lbl':   'セキュア化サイト',
+    'city-sanjose-m3-lbl':   'プロビジョニング時間',
+    'city-sanjose-i1': 'SOARプレイブックとセキュリティワークフローを強化し、平均復旧時間（MTTR）を20%削減',
+    'city-sanjose-i2': 'Ansible・TerraformによるIaCで50以上のサイト全体のグローバルセキュリティインフラを標準化・自動化',
+    'city-sanjose-i3': '高リスクインシデントを緩和し、IaC自動化により最大60%のプロビジョニング時間短縮を達成',
+    'city-sanjose-detail': 'Ciscoシステムズのグローバル本社でのリモートCyberOpsエンジニアリング。エンタープライズSOAR自動化の強化、セキュリティワークフローの堅牢化、50以上の国際拠点にわたるIaCロールアウトを実施。',
+
+    /* Buea */
+    'city-buea-role':     'ITサポート・教育アシスタント',
+    'city-buea-industry': '学術 · ネットワークエンジニアリング',
+    'city-buea-status':   '現地契約 · 2022年12月〜2023年6月',
+    'city-buea-m1-lbl':   '学習効果',
+    'city-buea-m2-lbl':   'ポリシー準拠',
+    'city-buea-m3-lbl':   'ラボモジュール',
+    'city-buea-i1': 'ルーター、ファイアウォール、IAMシステムなど企業グレードのネットワークインフラを整備・維持',
+    'city-buea-i2': '体系的なエンタープライズネットワーキングラボプロトコルにより学習効率を最大89%向上',
+    'city-buea-i3': 'すべてのCiscoネットワークインフラで機関のセキュリティポリシーへの完全準拠を確保',
+    'city-buea-detail': 'カメルーンのシリコンバレーと呼ばれるブエアの工科大学でのCisco ITサポート・教育業務。エンタープライズネットワーキングラボの維持管理、構造化カリキュラム教材の設計、ネットワークエンジニアリング学生の指導を担当。',
+
+    /* Douala */
+    'city-douala-role':     'リードDevOpsコンサルタント & フルスタック開発者',
+    'city-douala-industry': 'SaaS · DevOps · フルスタック',
+    'city-douala-status':   'コンサルティング · 2021年2月〜現在',
+    'city-douala-m1-lbl':   '稼働率SLA',
+    'city-douala-m2-lbl':   'リリースサイクル',
+    'city-douala-m3-lbl':   '可用性',
+    'city-douala-i1': 'MisterCompのリードDevOpsコンサルタントとして99.9%の運用継続性を確保する技術戦略を定義',
+    'city-douala-i2': 'Rocket 234のフルスタック開発者として99.99%のシステム可用性を実現するスケーラブルなソリューションを提供',
+    'city-douala-i3': 'CI/CDパイプライン自動化とDevOps変革を主導し、リリースサイクルを20%以上短縮',
+    'city-douala-detail': 'ドゥアラでの並行デュアルロール。MisterCompでのリードDevOpsコンサルタントとして技術戦略とクラウドインフラを定義。Rocket 234でのフルスタック開発者として、ほぼ完璧な稼働率を誇る本番グレードのウェブプラットフォームを提供。',
+
+    /* Pune */
+    'city-pune-role':     '大学院研究員 — 理学修士 コンピュータサイエンス',
+    'city-pune-industry': '学術 · AI / ML研究',
+    'city-pune-status':   '修士課程 · 優秀（最上位） · 2021〜2023年',
+    'city-pune-m1-lbl':   '成績',
+    'city-pune-m2-lbl':   '成績優秀奨学金',
+    'city-pune-m3-lbl':   'コホート',
+    'city-pune-i1': 'コンピュータサイエンス理学修士を優秀（最上位）で取得 — コホートのトップティア',
+    'city-pune-i2': '優れた学業成績を認められ、連続2回の成績優秀奨学金を受給',
+    'city-pune-i3': 'AIOps、予測自動化、クラウドネイティブDevOps、分散インフラを研究テーマとして専攻',
+    'city-pune-detail': 'インド・プネーのVishwanath Karad MITワールドピース大学でコンピュータサイエンス修士を取得。優秀（最上位）で卒業し、連続2回の成績優秀奨学金を獲得。AIOps、予測自動化、クラウドネイティブシステム設計を専攻。',
   },
 };
 
@@ -650,6 +1031,12 @@ function setGlobalLang(code) {
 
   /* 6. Refresh all 8 bento-grid card labels */
   if (typeof refreshNeural === 'function') refreshNeural();
+
+  /* 7. Refresh globe city panel role labels */
+  if (typeof refreshCityPanel === 'function') refreshCityPanel();
+
+  /* 8. Re-render open city modal in the new language (live update) */
+  if (typeof refreshOpenModal === 'function') refreshOpenModal();
 }
 
 function getLang() { return currentLang; }
