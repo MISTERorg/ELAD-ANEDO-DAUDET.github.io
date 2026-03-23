@@ -159,8 +159,8 @@ function downloadCV(){
     osc.start();osc.stop(ac.currentTime+.55);
   }catch(e){}
   const a=document.createElement('a');
-  a.href='ELAD_ANEDO_DAUDET.docx';
-  a.download='Elad_Anedo_Daudet_CV.docx';
+  a.href='ELAD_DAUDET_RESUME.pdf';
+  a.download='ELAD_DAUDET_RESUME.pdf';
   a.click();
 }
 
